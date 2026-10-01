@@ -1,0 +1,7 @@
+{
+  "name": "Hanami — Japan Destination Showcase",
+  "description": "An editorial showcase of 16 Japanese destinations with soft sakura aesthetics, layered parallax motion, and cultural travel curation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

@@ -1,0 +1,275 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: 'Shippori Mincho', 'Noto Serif JP', Georgia, serif;
+  --font-sans: 'DM Sans', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --color-ground: #FFF0F5;
+  --color-ink: #2B2440;
+  --color-signal: #C9414D;
+  --color-gold: #D4AF6A;
+  --color-surface: #FFF8FA;
+  --color-mauve: #8B7E8C;
+  --color-p2: #FFC9DB;
+  --color-p3: #F5A3BE;
+}
+
+:root {
+  --bg: #FFF0F5;
+  --ink: #2B2440;
+  --red: #C9414D;
+  --red-hover: #B0323E;
+  --gold: #D4AF6A;
+  --sf: #FFF8FA;
+  --mute: #8B7E8C;
+  --p2: #FFC9DB;
+  --p3: #F5A3BE;
+  --header-bg: #2B2440;
+  --header-border: #4A4062;
+  --card-bg-top: #FFF8FA;
+  --card-bg-bottom: #FFE8F0;
+  --card-border: #F7C4D6;
+  --tag-bg: #FFEAF1;
+  --cta-grad: linear-gradient(135deg, #C9414D 0%, #E2647D 100%);
+  --hero-scrim: linear-gradient(to bottom, rgba(43,36,64,0.7) 0%, rgba(43,36,64,0.45) 50%, rgba(43,36,64,0.85) 100%);
+  color-scheme: light;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Summer Verdant Theme (新緑 / 夏 - Bamboo Forest & Moss Emerald) */
+[data-season="summer"] {
+  --bg: #F0F8F4;
+  --ink: #14281E;
+  --red: #1E7B48;
+  --red-hover: #176339;
+  --gold: #BCA23C;
+  --sf: #F4FAF6;
+  --mute: #5E7A6B;
+  --p2: #BCE5CF;
+  --p3: #8DD1A7;
+  --header-bg: #132B1F;
+  --header-border: #234B35;
+  --card-bg-top: #F6FCF8;
+  --card-bg-bottom: #E4F5EB;
+  --card-border: #A3DEBF;
+  --tag-bg: #DCF5E7;
+  --cta-grad: linear-gradient(135deg, #1E7B48 0%, #38A169 100%);
+  --hero-scrim: linear-gradient(to bottom, rgba(19,43,31,0.72) 0%, rgba(19,43,31,0.45) 50%, rgba(19,43,31,0.88) 100%);
+}
+
+/* Autumn Momiji Theme (紅葉 / 秋 - Maple Scarlet & Harvest Amber) */
+[data-season="autumn"] {
+  --bg: #FDF6ED;
+  --ink: #32180F;
+  --red: #BA3D1D;
+  --red-hover: #9E2F14;
+  --gold: #D48425;
+  --sf: #FDF8F2;
+  --mute: #826653;
+  --p2: #FAD7BA;
+  --p3: #EAA676;
+  --header-bg: #2E1810;
+  --header-border: #4D2B1E;
+  --card-bg-top: #FFFBF6;
+  --card-bg-bottom: #FBE6D3;
+  --card-border: #EFC0A1;
+  --tag-bg: #FAE7D5;
+  --cta-grad: linear-gradient(135deg, #BA3D1D 0%, #E07A2A 100%);
+  --hero-scrim: linear-gradient(to bottom, rgba(46,24,16,0.72) 0%, rgba(46,24,16,0.45) 50%, rgba(46,24,16,0.88) 100%);
+}
+
+/* Winter Snow Theme (雪景 / 冬 - Alpine Ice & Frost Indigo) */
+[data-season="winter"] {
+  --bg: #F0F5FA;
+  --ink: #121F2D;
+  --red: #265D88;
+  --red-hover: #1D4A6E;
+  --gold: #7E9FB8;
+  --sf: #F4F8FC;
+  --mute: #62778A;
+  --p2: #C6DEF2;
+  --p3: #9BC1E4;
+  --header-bg: #121D2C;
+  --header-border: #1F334B;
+  --card-bg-top: #F7FAFD;
+  --card-bg-bottom: #E3EEF8;
+  --card-border: #A6C8E6;
+  --tag-bg: #E1EFFC;
+  --cta-grad: linear-gradient(135deg, #265D88 0%, #4A8DB7 100%);
+  --hero-scrim: linear-gradient(to bottom, rgba(18,29,44,0.72) 0%, rgba(18,29,44,0.45) 50%, rgba(18,29,44,0.88) 100%);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans), sans-serif;
+  color: var(--ink);
+  background: radial-gradient(900px 520px at 6% -4%, var(--p2), transparent 62%),
+              radial-gradient(760px 520px at 100% 28%, var(--p3), transparent 60%),
+              linear-gradient(var(--p2), var(--sf) 55%, #ffffff) fixed;
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.65;
+  transition: background 0.5s ease, color 0.4s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hanko Japanese seal stamp */
+.hanko-stamp {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  background: var(--red);
+  color: #fff;
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 700;
+  font-size: 2rem;
+  border-radius: 8px;
+  transform: rotate(-6deg);
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.28), 0 4px 14px rgba(0, 0, 0, 0.2);
+  user-select: none;
+  transition: background-color 0.4s ease;
+}
+
+/* Vertical Japanese text */
+.vertical-text {
+  writing-mode: vertical-rl;
+  font-family: 'Shippori Mincho', serif;
+  letter-spacing: 0.35em;
+  user-select: none;
+}
+
+/* Animated Marquee Ticker */
+.ticker-wrap {
+  overflow: hidden;
+  background: var(--p2);
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  padding: 0.75rem 0;
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  position: relative;
+  z-index: 10;
+  color: var(--ink);
+  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+}
+
+.ticker-inner {
+  display: flex;
+  width: max-content;
+  animation: tickerSlide 70s linear infinite;
+}
+
+.ticker-wrap:hover .ticker-inner {
+  animation-play-state: paused;
+}
+
+@keyframes tickerSlide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-inner {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Arched photo shape matching reference */
+.arch-photo {
+  border-radius: 50% 50% 14px 14px / 36% 36% 14px 14px;
+}
+
+/* Decorative Heading Accent */
+.heading-accent::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 3px;
+  border-radius: 2px;
+  margin: 0.8rem auto 0;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  transition: background 0.4s ease;
+}
+
+.heading-accent-left::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 3px;
+  border-radius: 2px;
+  margin-top: 0.8rem;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  transition: background 0.4s ease;
+}
+
+/* Seasonal Full-Ambiance Utility Classes */
+.theme-header-bg {
+  background-color: var(--header-bg) !important;
+  border-color: var(--header-border) !important;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.theme-card-bg {
+  background: linear-gradient(to bottom, var(--card-bg-top), var(--card-bg-bottom)) !important;
+  border-color: var(--card-border) !important;
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+.theme-card-bg:hover {
+  border-color: var(--red) !important;
+}
+
+.theme-cta-btn {
+  background: var(--cta-grad) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+.theme-cta-btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.theme-border {
+  border-color: var(--card-border) !important;
+  transition: border-color 0.4s ease;
+}
+
+.theme-tag-bg {
+  background-color: var(--tag-bg) !important;
+  color: var(--ink) !important;
+  border-color: var(--card-border) !important;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+.theme-primary-bg {
+  background-color: var(--red) !important;
+  color: #ffffff !important;
+  transition: background-color 0.4s ease;
+}
+
+.theme-primary-text {
+  color: var(--red) !important;
+  transition: color 0.4s ease;
+}
+
+.theme-accent-text {
+  color: var(--gold) !important;
+  transition: color 0.4s ease;
+}
+
+/* Traditional Seigaiha wave pattern */
+.seigaiha-pattern {
+  background-color: transparent;
+  background-image: radial-gradient(circle at 50% 100%, transparent 18px, rgba(212, 175, 106, 0.45) 19px, rgba(212, 175, 106, 0.45) 21px, transparent 22px, transparent 33px, rgba(212, 175, 106, 0.35) 34px, rgba(212, 175, 106, 0.35) 36px, transparent 37px);
+  background-size: 50px 25px;
+}
+
