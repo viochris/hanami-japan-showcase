@@ -92,12 +92,6 @@ export const ItineraryBuilder: React.FC<ItineraryBuilderProps> = ({
   const [copied, setCopied] = useState(false);
   const [applied, setApplied] = useState(false);
 
-  // Gemini AI Itinerary Summary states
-  const [isGeneratingAi, setIsGeneratingAi] = useState(false);
-  const [aiSummary, setAiSummary] = useState<string | null>(null);
-  const [aiError, setAiError] = useState<string | null>(null);
-  const [copiedAi, setCopiedAi] = useState(false);
-
   // Available attraction pool
   const filteredAttractions = useMemo(() => {
     return DESTINATIONS.filter(d => {
@@ -286,57 +280,6 @@ export const ItineraryBuilder: React.FC<ItineraryBuilderProps> = ({
     setTimeout(() => setCopied(false), 2500);
   };
 
-  // Generate AI Itinerary Summary via Gemini API
-  const handleGenerateAiSummary = async () => {
-    setIsGeneratingAi(true);
-    setAiError(null);
-    try {
-      const scheduledDestinations = Array.from(scheduledDestinationIds)
-        .map(id => DESTINATIONS.find(d => d.id === id)?.name)
-        .filter(Boolean);
-
-      const res = await fetch("/api/generate-itinerary-summary", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          destinations:
-            scheduledDestinations.length > 0
-              ? scheduledDestinations
-              : [initialDestinationName || "Mount Fuji"],
-          itineraryText: generateItinerarySummary(),
-          season: seasonInfo.label
-        })
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to generate AI itinerary summary");
-      }
-      setAiSummary(data.summary);
-    } catch (err: any) {
-      setAiError(err.message || "Failed to generate AI itinerary summary");
-    } finally {
-      setIsGeneratingAi(false);
-    }
-  };
-
-  const handleCopyAiSummary = () => {
-    if (!aiSummary) return;
-    navigator.clipboard.writeText(aiSummary);
-    setCopiedAi(true);
-    setTimeout(() => setCopiedAi(false), 2500);
-  };
-
-  const handleInsertAiSummaryToInquiry = () => {
-    if (!aiSummary) return;
-    const combined = `${generateItinerarySummary()}\n\n[Cultural Itinerary Synthesis]\n${aiSummary}`;
-    if (onApplyToTripForm) {
-      onApplyToTripForm(combined);
-      setApplied(true);
-      setTimeout(() => setApplied(false), 3000);
-    }
-  };
-
   // Apply directly to consultation form
   const handleApplyToTripRequest = () => {
     const text = generateItinerarySummary();
@@ -366,20 +309,9 @@ export const ItineraryBuilder: React.FC<ItineraryBuilderProps> = ({
         </div>
 
         <div className="flex items-center gap-2 flex-wrap w-full md:w-auto">
-          {/* Generate AI Itinerary Summary Button */}
-          <button
-            onClick={handleGenerateAiSummary}
-            disabled={isGeneratingAi}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold theme-cta-btn transition-all cursor-pointer shadow-xs hover:scale-102 disabled:opacity-50"
-            title="Generate a culturally-informed paragraph describing this planned trip using Gemini"
-          >
-            <Sparkles className={`w-3.5 h-3.5 ${isGeneratingAi ? "animate-spin text-[var(--gold)]" : "text-white"}`} />
-            <span>{isGeneratingAi ? "Curating Synthesis…" : "Generate AI Summary"}</span>
-          </button>
-
           <button
             onClick={handleAddDay}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold theme-tag-bg border theme-border hover:opacity-90 transition-all cursor-pointer shadow-xs"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold theme-tag-bg border theme-border hover:opacity-90 transition-all cursor-pointer shadow-xs"
           >
             <Plus className="w-3.5 h-3.5 theme-primary-text" />
             <span>Add Day</span>
@@ -387,7 +319,7 @@ export const ItineraryBuilder: React.FC<ItineraryBuilderProps> = ({
 
           <button
             onClick={handleCopyItinerary}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-white text-[var(--ink)] border theme-border hover:bg-white/80 transition-all cursor-pointer shadow-xs"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold bg-white text-[var(--ink)] border theme-border hover:bg-white/80 transition-all cursor-pointer shadow-xs"
             title="Copy formatted itinerary to clipboard"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
@@ -397,7 +329,7 @@ export const ItineraryBuilder: React.FC<ItineraryBuilderProps> = ({
           {onApplyToTripForm && (
             <button
               onClick={handleApplyToTripRequest}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold theme-header-bg text-white transition-all cursor-pointer shadow-sm hover:opacity-90"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold theme-header-bg text-white transition-all cursor-pointer shadow-sm hover:opacity-90"
               title="Apply this schedule into the consultation inquiry form below"
             >
               {applied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Send className="w-3.5 h-3.5" />}
@@ -406,81 +338,6 @@ export const ItineraryBuilder: React.FC<ItineraryBuilderProps> = ({
           )}
         </div>
       </div>
-
-      {/* AI Culturally-Informed Itinerary Summary Card */}
-      {(isGeneratingAi || aiSummary || aiError) && (
-        <div className="relative theme-card-bg border-2 border-[var(--gold)] rounded-2xl p-5 sm:p-7 shadow-md overflow-hidden animate-in fade-in slide-in-from-top-2 duration-300">
-          <div className="flex items-start gap-4">
-            {/* Hanko Cultural Stamp */}
-            <div className="w-12 h-12 rounded-xl theme-primary-bg text-white font-serif font-bold text-xl flex items-center justify-center shrink-0 shadow-md">
-              雅
-            </div>
-
-            <div className="flex-1 space-y-2">
-              <div className="flex items-center justify-between gap-2 flex-wrap">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-serif font-bold text-base sm:text-lg text-[var(--ink)]">
-                    Curator's Cultural Synthesis (文化的旅程要約)
-                  </h3>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 flex items-center gap-1">
-                    <Sparkles className="w-3 h-3 text-purple-600" />
-                    <span>Gemini AI</span>
-                  </span>
-                </div>
-
-                {aiSummary && (
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={handleCopyAiSummary}
-                      className="text-xs font-semibold px-2.5 py-1 rounded-md bg-white border theme-border hover:bg-white/80 transition-colors flex items-center gap-1 cursor-pointer"
-                    >
-                      {copiedAi ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-                      <span>{copiedAi ? "Copied" : "Copy"}</span>
-                    </button>
-                    {onApplyToTripForm && (
-                      <button
-                        onClick={handleInsertAiSummaryToInquiry}
-                        className="text-xs font-bold px-3 py-1 rounded-md theme-cta-btn text-white transition-all shadow-xs hover:scale-102 cursor-pointer flex items-center gap-1"
-                      >
-                        <Send className="w-3 h-3" />
-                        <span>Insert into Inquiry</span>
-                      </button>
-                    )}
-                    <button
-                      onClick={() => setAiSummary(null)}
-                      className="text-xs text-[var(--mute)] hover:text-red-500 transition-colors cursor-pointer px-1"
-                      title="Dismiss"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              {isGeneratingAi && (
-                <div className="py-4 flex items-center gap-3 text-xs text-[var(--mute)]">
-                  <div className="w-4 h-4 border-2 border-[var(--red)] border-t-transparent rounded-full animate-spin shrink-0" />
-                  <span>
-                    Consulting cultural archives and weaving your chosen destinations into an evocative narrative…
-                  </span>
-                </div>
-              )}
-
-              {aiError && (
-                <p className="text-xs text-red-600 bg-red-50 p-3 rounded-lg border border-red-200">
-                  {aiError}
-                </p>
-              )}
-
-              {aiSummary && (
-                <p className="font-serif text-sm sm:text-base text-[var(--ink)] leading-relaxed italic bg-white/60 p-4 rounded-xl border theme-border">
-                  "{aiSummary}"
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Main Grid: Left = Day-by-Day Schedule, Right = Attraction Drawer */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">

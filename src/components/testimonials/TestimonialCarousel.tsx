@@ -115,42 +115,43 @@ export const TESTIMONIALS: Testimonial[] = [
 export const TestimonialCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const total = TESTIMONIALS.length;
 
   const current = TESTIMONIALS[currentIndex];
 
+  // Automatic cycle every 5 seconds without hitch or extra delay at the end
+  const [resetKey, setResetKey] = useState(0);
+
   const handleNext = () => {
     setCurrentIndex(prev => (prev + 1) % total);
+    setResetKey(k => k + 1);
   };
 
   const handlePrev = () => {
     setCurrentIndex(prev => (prev - 1 + total) % total);
+    setResetKey(k => k + 1);
   };
 
-  // Automatic cycle every 5 seconds
   useEffect(() => {
     if (isPaused) return;
 
-    timerRef.current = setInterval(() => {
-      handleNext();
+    const intervalId = setInterval(() => {
+      setCurrentIndex(prev => (prev + 1) % total);
     }, 5000);
 
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [currentIndex, isPaused, total]);
+    return () => clearInterval(intervalId);
+  }, [isPaused, total, resetKey]);
 
   return (
     <div
-      className="relative max-w-4xl mx-auto px-4"
+      className="relative w-full"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       role="region"
       aria-label="Traveler Testimonials Carousel"
     >
       {/* Main Testimonial Card */}
-      <div className="relative theme-card-bg border-2 border-[var(--card-border)] rounded-3xl p-6 sm:p-10 shadow-lg overflow-hidden transition-all duration-300">
+      <div className="relative w-full theme-card-bg border-2 border-[var(--card-border)] rounded-3xl p-7 sm:p-12 shadow-lg overflow-hidden transition-all duration-300">
         {/* Subtle decorative background watermarks */}
         <div className="absolute top-4 right-6 pointer-events-none opacity-10">
           <Quote className="w-24 h-24 theme-primary-text" />

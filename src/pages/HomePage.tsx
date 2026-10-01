@@ -184,6 +184,39 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
         <TestimonialCarousel />
       </section>
+
+      {/* 7. Bottom Invitation Banner */}
+      <section className="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div className="theme-header-bg text-white rounded-3xl p-8 sm:p-12 text-center space-y-5 shadow-xl relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,var(--gold)_1px,transparent_1px)] bg-[size:24px_24px]" />
+          <div className="relative z-10 max-w-xl mx-auto space-y-3">
+            <span className="text-xs font-serif tracking-widest text-[var(--gold)] uppercase">
+              Begin Your Voyage
+            </span>
+            <h3 className="font-serif text-2xl sm:text-4xl font-bold">
+              Ready to Experience Japan Mindfully?
+            </h3>
+            <p className="text-xs sm:text-sm text-white/80 leading-relaxed">
+              Browse all sixteen curated destinations on our interactive regional map, or craft a bespoke day-by-day itinerary tailored to your travel window.
+            </p>
+            <div className="pt-2 flex items-center justify-center gap-3 flex-wrap">
+              <button
+                onClick={() => onNavigate("destinations")}
+                className="px-6 py-2.5 rounded-full theme-cta-btn text-white text-xs font-bold transition-all shadow-md hover:scale-105 cursor-pointer flex items-center gap-2"
+              >
+                <span>Explore Destinations</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+              <button
+                onClick={() => onNavigate("plan-trip")}
+                className="px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/30 text-white text-xs font-bold transition-all cursor-pointer"
+              >
+                <span>Plan an Itinerary</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

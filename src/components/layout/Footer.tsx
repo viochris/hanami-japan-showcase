@@ -61,9 +61,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer className="relative mt-20 theme-header-bg text-[#F3E6EE] border-t border-white/10 transition-colors duration-400">
+    <footer className="relative mt-20 theme-header-bg text-[var(--sf)] border-t border-white/10 transition-colors duration-500">
       {/* Decorative Seigaiha wave pattern SVG border above footer */}
-      <div className="w-full h-7 overflow-hidden text-[#F5A3BE] border-b border-[#D4AF6A]/30">
+      <div className="w-full h-7 overflow-hidden text-[var(--p3)] border-b border-[#D4AF6A]/30 transition-colors duration-500">
         <svg
           className="w-full h-full block"
           aria-hidden="true"

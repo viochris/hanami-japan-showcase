@@ -15,17 +15,18 @@ export const SakuraPetals: React.FC<SakuraPetalsProps> = ({
   const { season: contextSeason } = useSeason();
   const currentSeason = forcedSeason || contextSeason;
 
-  // Respect device size and reduced motion: low = 6-8 particles, hero = 18 particles on desktop, 6 on mobile
-  const particleCount = density === "hero" ? 18 : density === "medium" ? 10 : 7;
+  // Gentle, non-intrusive particle count for background atmosphere
+  const particleCount = density === "hero" ? 14 : density === "medium" ? 8 : 6;
 
   const particles = useMemo(() => {
     return Array.from({ length: particleCount }, (_, i) => {
       const left = Math.round((i / particleCount) * 96 + (Math.sin(i * 1.7) * 3));
-      const animationDuration = 9 + (i % 7) * 2.2;
-      const animationDelay = (i * 1.3) % 8;
-      const size = 14 + (i % 4) * 4;
-      const opacity = 0.45 + (i % 3) * 0.18;
-      const drift = -30 + (i % 5) * 15;
+      const animationDuration = 10 + (i % 6) * 2.5;
+      const animationDelay = (i * 1.4) % 8;
+      const size = 13 + (i % 3) * 3.5;
+      // Soft ambient opacity for background layer (never harsh or foreground)
+      const opacity = 0.22 + (i % 3) * 0.12;
+      const drift = -25 + (i % 5) * 12;
 
       return {
         id: i,
@@ -52,14 +53,12 @@ export const SakuraPetals: React.FC<SakuraPetalsProps> = ({
                 <stop offset="1" stopColor="#238254" />
               </linearGradient>
             </defs>
-            {/* Elongated fresh willow/bamboo leaf */}
             <path
               d="M15 0C22 10 26 24 15 40C4 24 8 10 15 0Z"
               fill="url(#summerLeafGrad)"
-              opacity="0.9"
+              opacity="0.85"
             />
-            {/* Center vein */}
-            <path d="M15 4C15 16 15 28 15 36" stroke="#D1F5DE" strokeWidth="0.8" opacity="0.7" />
+            <path d="M15 4C15 16 15 28 15 36" stroke="#D1F5DE" strokeWidth="0.8" opacity="0.6" />
           </svg>
         );
 
@@ -74,11 +73,10 @@ export const SakuraPetals: React.FC<SakuraPetalsProps> = ({
                 <stop offset="1" stopColor="#C84B26" />
               </linearGradient>
             </defs>
-            {/* Five-pointed Japanese maple leaf silhouette */}
             <path
               d="M20 2 L22 12 L31 7 L27 16 L38 18 L28 23 L32 32 L22 27 L20 38 L18 27 L8 32 L12 23 L2 18 L13 16 L9 7 L18 12 Z"
               fill="url(#autumnMomijiGrad)"
-              opacity="0.9"
+              opacity="0.85"
             />
           </svg>
         );
@@ -94,13 +92,11 @@ export const SakuraPetals: React.FC<SakuraPetalsProps> = ({
                 <stop offset="1" stopColor="#9BC1E4" />
               </radialGradient>
             </defs>
-            {/* Hexagonal snowflake branches */}
             <g stroke="url(#winterSnowGrad)" strokeWidth="1.5" strokeLinecap="round">
               <line x1="16" y1="2" x2="16" y2="30" />
               <line x1="2" y1="16" x2="30" y2="16" />
               <line x1="6" y1="6" x2="26" y2="26" />
               <line x1="6" y1="26" x2="26" y2="6" />
-              {/* Branch chevrons */}
               <path d="M12 6 L16 10 L20 6" />
               <path d="M12 26 L16 22 L20 26" />
               <path d="M6 12 L10 16 L6 20" />
@@ -122,17 +118,15 @@ export const SakuraPetals: React.FC<SakuraPetalsProps> = ({
                 <stop offset="1" stopColor="#E27396" />
               </linearGradient>
             </defs>
-            {/* Elegant curved cherry blossom petal shape */}
             <path
               d="M15 0C8 8 2 18 3 28C4 35 10 39 15 39C20 39 26 35 27 28C28 18 22 8 15 0Z"
               fill="url(#sakuraGrad)"
-              opacity="0.9"
+              opacity="0.85"
             />
-            {/* Petal notch indent */}
             <path
               d="M13 39C14.5 37.5 15.5 37.5 17 39"
               stroke="#FFF0F5"
-              strokeWidth="1"
+              strokeWidth="0.8"
             />
           </svg>
         );
@@ -142,7 +136,7 @@ export const SakuraPetals: React.FC<SakuraPetalsProps> = ({
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-0 overflow-hidden select-none z-10 ${className}`}
+      className={`pointer-events-none absolute inset-0 overflow-hidden select-none z-0 ${className}`}
     >
       <style>
         {`
@@ -152,13 +146,13 @@ export const SakuraPetals: React.FC<SakuraPetalsProps> = ({
               opacity: 0;
             }
             15% {
-              opacity: var(--particle-opacity, 0.6);
+              opacity: var(--particle-opacity, 0.35);
             }
             85% {
-              opacity: var(--particle-opacity, 0.6);
+              opacity: var(--particle-opacity, 0.35);
             }
             100% {
-              transform: translate3d(var(--particle-drift, 40px), 105vh, 0) rotate(360deg) scale(1.05);
+              transform: translate3d(var(--particle-drift, 30px), 105vh, 0) rotate(360deg) scale(1.02);
               opacity: 0;
             }
           }

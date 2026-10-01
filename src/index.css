@@ -3,99 +3,114 @@
 @theme {
   --font-serif: 'Shippori Mincho', 'Noto Serif JP', Georgia, serif;
   --font-sans: 'DM Sans', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --color-ground: #FFF0F5;
-  --color-ink: #2B2440;
-  --color-signal: #C9414D;
-  --color-gold: #D4AF6A;
-  --color-surface: #FFF8FA;
-  --color-mauve: #8B7E8C;
-  --color-p2: #FFC9DB;
-  --color-p3: #F5A3BE;
+  --color-ground: var(--bg);
+  --color-ink: var(--ink);
+  --color-signal: var(--red);
+  --color-gold: var(--gold);
+  --color-surface: var(--sf);
+  --color-mauve: var(--mute);
+  --color-p2: var(--p2);
+  --color-p3: var(--p3);
 }
 
-:root {
-  --bg: #FFF0F5;
-  --ink: #2B2440;
-  --red: #C9414D;
+/* ==============================================================
+   SEASONAL COLOR SYSTEMS: DEEP ATMOSPHERIC TRANSFORMATION
+   Each season shifts the entire palette, including the dominant
+   white / off-white tint, card gradients, borders, and buttons.
+   ============================================================== */
+
+/* 1. Spring (春 - Sakura / Haru)
+   Dominant White Tint: Soft Cherry Blossom Mist & Blush White (#FFF7FA / #FFF0F5) */
+:root, [data-season="spring"] {
+  --bg: #FFF0F5;              /* Soft Sakura Mist Ground */
+  --ink: #2B2440;             /* Wisteria Charcoal Ink */
+  --red: #C9414D;             /* Japanese Crimson / Sakura Ruby */
   --red-hover: #B0323E;
-  --gold: #D4AF6A;
-  --sf: #FFF8FA;
-  --mute: #8B7E8C;
-  --p2: #FFC9DB;
-  --p3: #F5A3BE;
-  --header-bg: #2B2440;
-  --header-border: #4A4062;
-  --card-bg-top: #FFF8FA;
-  --card-bg-bottom: #FFE8F0;
+  --gold: #D4AF6A;            /* Warm Imperial Gold */
+  --sf: #FFF7FA;              /* Dominant White: Sakura Blush White */
+  --surface-tint: #FFF0F5;
+  --card-bg-top: #FFFFFF;     /* Crisp white blending to soft blush */
+  --card-bg-bottom: #FFF0F6;  /* Soft cherry petal white */
   --card-border: #F7C4D6;
   --tag-bg: #FFEAF1;
+  --header-bg: #2B2440;       /* Wisteria Midnight */
+  --header-border: #4A4062;
+  --p2: #FFD4E2;
+  --p3: #F9ABC3;
+  --mute: #8B7E8C;
   --cta-grad: linear-gradient(135deg, #C9414D 0%, #E2647D 100%);
   --hero-scrim: linear-gradient(to bottom, rgba(43,36,64,0.7) 0%, rgba(43,36,64,0.45) 50%, rgba(43,36,64,0.85) 100%);
   color-scheme: light;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition: background-color 0.5s ease, color 0.4s ease;
 }
 
-/* Summer Verdant Theme (新緑 / 夏 - Bamboo Forest & Moss Emerald) */
+/* 2. Summer (夏 - Shinryoku / Natsu - Bamboo Forest & Cool Stream)
+   Dominant White Tint: Fresh Bamboo Celadon & Crisp Mint-Porcelain White (#F4FAF6 / #EDF7F1) */
 [data-season="summer"] {
-  --bg: #F0F8F4;
-  --ink: #14281E;
-  --red: #1E7B48;
-  --red-hover: #176339;
-  --gold: #BCA23C;
-  --sf: #F4FAF6;
-  --mute: #5E7A6B;
-  --p2: #BCE5CF;
-  --p3: #8DD1A7;
-  --header-bg: #132B1F;
-  --header-border: #234B35;
-  --card-bg-top: #F6FCF8;
-  --card-bg-bottom: #E4F5EB;
-  --card-border: #A3DEBF;
-  --tag-bg: #DCF5E7;
-  --cta-grad: linear-gradient(135deg, #1E7B48 0%, #38A169 100%);
-  --hero-scrim: linear-gradient(to bottom, rgba(19,43,31,0.72) 0%, rgba(19,43,31,0.45) 50%, rgba(19,43,31,0.88) 100%);
+  --bg: #EDF7F1;              /* Refreshing Bamboo Dew Ground */
+  --ink: #0E291D;             /* Deep Cypress Bark Ink */
+  --red: #1E7B48;             /* Vibrant Bamboo Emerald */
+  --red-hover: #166138;
+  --gold: #C49A28;            /* Sunlit Straw Gold */
+  --sf: #F4FAF6;              /* Dominant White: Fresh Bamboo Celadon White */
+  --surface-tint: #E8F5EE;
+  --card-bg-top: #FFFFFF;     /* Crisp white blending to jade dew */
+  --card-bg-bottom: #E4F5EB;  /* Pale mint celadon porcelain */
+  --card-border: #A6DFC2;
+  --tag-bg: #DAF4E6;
+  --header-bg: #0C2418;       /* Deep Forest Cypress Midnight */
+  --header-border: #1E4F36;
+  --p2: #BFE8D2;
+  --p3: #8ED4AC;
+  --mute: #4D705C;
+  --cta-grad: linear-gradient(135deg, #1E7B48 0%, #34A86A 100%);
+  --hero-scrim: linear-gradient(to bottom, rgba(12,36,24,0.72) 0%, rgba(12,36,24,0.45) 50%, rgba(12,36,24,0.88) 100%);
 }
 
-/* Autumn Momiji Theme (紅葉 / 秋 - Maple Scarlet & Harvest Amber) */
+/* 3. Autumn (秋 - Momiji / Aki - Red Maple & Golden Ginkgo)
+   Dominant White Tint: Warm Toasted Rice-Paper Cream & Amber Parchment (#FDF8EE / #FAF1E3) */
 [data-season="autumn"] {
-  --bg: #FDF6ED;
-  --ink: #32180F;
-  --red: #BA3D1D;
-  --red-hover: #9E2F14;
-  --gold: #D48425;
-  --sf: #FDF8F2;
-  --mute: #826653;
-  --p2: #FAD7BA;
-  --p3: #EAA676;
-  --header-bg: #2E1810;
-  --header-border: #4D2B1E;
-  --card-bg-top: #FFFBF6;
-  --card-bg-bottom: #FBE6D3;
-  --card-border: #EFC0A1;
-  --tag-bg: #FAE7D5;
-  --cta-grad: linear-gradient(135deg, #BA3D1D 0%, #E07A2A 100%);
-  --hero-scrim: linear-gradient(to bottom, rgba(46,24,16,0.72) 0%, rgba(46,24,16,0.45) 50%, rgba(46,24,16,0.88) 100%);
+  --bg: #FAF1E3;              /* Warm Toasted Rice Paper Ground */
+  --ink: #2E150B;             /* Aged Kyoto Cedar Ink */
+  --red: #BE3C1B;             /* Fiery Momiji Maple Crimson */
+  --red-hover: #9E2F13;
+  --gold: #D97706;            /* Harvest Ginkgo Gold */
+  --sf: #FDF8EE;              /* Dominant White: Toasted Cream & Parchment White */
+  --surface-tint: #F7EDE0;
+  --card-bg-top: #FFFFFF;     /* Crisp white blending to warm amber */
+  --card-bg-bottom: #FAECD8;  /* Toasted persimmon parchment white */
+  --card-border: #F2C2A0;
+  --tag-bg: #FAE5D0;
+  --header-bg: #271209;       /* Scorched Chestnut Midnight */
+  --header-border: #4F2817;
+  --p2: #F8D5B7;
+  --p3: #EBA474;
+  --mute: #7E5B42;
+  --cta-grad: linear-gradient(135deg, #BE3C1B 0%, #E37B27 100%);
+  --hero-scrim: linear-gradient(to bottom, rgba(39,18,9,0.75) 0%, rgba(39,18,9,0.45) 50%, rgba(39,18,9,0.88) 100%);
 }
 
-/* Winter Snow Theme (雪景 / 冬 - Alpine Ice & Frost Indigo) */
+/* 4. Winter (冬 - Yukigeshiki / Fuyu - Alpine Ice & Diamond Powder Snow)
+   Dominant White Tint: Crisp Diamond Frost & Icy Powder Snow White (#F1F6FB / #E8F1F9) */
 [data-season="winter"] {
-  --bg: #F0F5FA;
-  --ink: #121F2D;
-  --red: #265D88;
-  --red-hover: #1D4A6E;
-  --gold: #7E9FB8;
-  --sf: #F4F8FC;
-  --mute: #62778A;
-  --p2: #C6DEF2;
-  --p3: #9BC1E4;
-  --header-bg: #121D2C;
-  --header-border: #1F334B;
-  --card-bg-top: #F7FAFD;
-  --card-bg-bottom: #E3EEF8;
-  --card-border: #A6C8E6;
-  --tag-bg: #E1EFFC;
-  --cta-grad: linear-gradient(135deg, #265D88 0%, #4A8DB7 100%);
-  --hero-scrim: linear-gradient(to bottom, rgba(18,29,44,0.72) 0%, rgba(18,29,44,0.45) 50%, rgba(18,29,44,0.88) 100%);
+  --bg: #E8F1F9;              /* Crystalline Snow Mist Ground */
+  --ink: #0E1A29;             /* Alpine Indigo Slate Ink */
+  --red: #245D88;             /* Glacial Sapphire Blue */
+  --red-hover: #1A496E;
+  --gold: #688EA8;            /* Frosted Platinum Silver */
+  --sf: #F1F6FB;              /* Dominant White: Diamond Powder Snow & Icy White */
+  --surface-tint: #E2EEF8;
+  --card-bg-top: #FFFFFF;     /* Crisp white blending to frosted ice */
+  --card-bg-bottom: #DFEEFA;  /* Pale glacial blue-white */
+  --card-border: #A3C9EA;
+  --tag-bg: #DCECF9;
+  --header-bg: #0D1724;       /* Sub-Zero Alpine Night */
+  --header-border: #1A314A;
+  --p2: #C4DEF2;
+  --p3: #95BEE4;
+  --mute: #546B80;
+  --cta-grad: linear-gradient(135deg, #245D88 0%, #3F89BD 100%);
+  --hero-scrim: linear-gradient(to bottom, rgba(13,23,36,0.75) 0%, rgba(13,23,36,0.45) 50%, rgba(13,23,36,0.88) 100%);
 }
 
 body {
@@ -104,7 +119,7 @@ body {
   color: var(--ink);
   background: radial-gradient(900px 520px at 6% -4%, var(--p2), transparent 62%),
               radial-gradient(760px 520px at 100% 28%, var(--p3), transparent 60%),
-              linear-gradient(var(--p2), var(--sf) 55%, #ffffff) fixed;
+              linear-gradient(var(--p2), var(--sf) 55%, var(--bg)) fixed;
   min-height: 100vh;
   overflow-x: hidden;
   line-height: 1.65;
@@ -144,83 +159,76 @@ html {
 /* Animated Marquee Ticker */
 .ticker-wrap {
   overflow: hidden;
-  background: var(--p2);
-  border-top: 1px solid var(--gold);
-  border-bottom: 1px solid var(--gold);
+  background: var(--tag-bg);
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
   padding: 0.75rem 0;
-  font-family: 'Shippori Mincho', serif;
-  font-weight: 700;
-  font-size: 1.15rem;
-  position: relative;
-  z-index: 10;
-  color: var(--ink);
-  transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+  user-select: none;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 
-.ticker-inner {
-  display: flex;
-  width: max-content;
-  animation: tickerSlide 70s linear infinite;
+.ticker-content {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: tickerScroll 48s linear infinite;
+  will-change: transform;
 }
 
-.ticker-wrap:hover .ticker-inner {
+.ticker-wrap:hover .ticker-content {
   animation-play-state: paused;
 }
 
-@keyframes tickerSlide {
-  to {
-    transform: translateX(-50%);
-  }
+@keyframes tickerScroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .ticker-inner {
-    animation: none;
-  }
-  html {
-    scroll-behavior: auto !important;
-  }
+/* Heading Accent Rule */
+.heading-accent {
+  position: relative;
+  display: inline-block;
 }
 
-/* Arched photo shape matching reference */
-.arch-photo {
-  border-radius: 50% 50% 14px 14px / 36% 36% 14px 14px;
-}
-
-/* Decorative Heading Accent */
 .heading-accent::after {
-  content: "";
-  display: block;
-  width: 64px;
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 48px;
   height: 3px;
+  background: var(--red);
   border-radius: 2px;
-  margin: 0.8rem auto 0;
-  background: linear-gradient(90deg, var(--red), var(--gold));
-  transition: background 0.4s ease;
+  transition: background-color 0.4s ease;
 }
 
-.heading-accent-left::after {
-  content: "";
-  display: block;
-  width: 64px;
-  height: 3px;
-  border-radius: 2px;
-  margin-top: 0.8rem;
-  background: linear-gradient(90deg, var(--red), var(--gold));
-  transition: background 0.4s ease;
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Season Toggle Glow Button */
+.season-toggle-btn {
+  background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.04) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.season-toggle-btn:hover {
+  background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+  border-color: var(--gold);
 }
 
 /* Seasonal Full-Ambiance Utility Classes */
 .theme-header-bg {
   background-color: var(--header-bg) !important;
   border-color: var(--header-border) !important;
-  transition: background-color 0.4s ease, border-color 0.4s ease;
+  transition: background-color 0.5s ease, border-color 0.5s ease;
 }
 
 .theme-card-bg {
   background: linear-gradient(to bottom, var(--card-bg-top), var(--card-bg-bottom)) !important;
   border-color: var(--card-border) !important;
-  transition: background 0.4s ease, border-color 0.4s ease;
+  transition: background 0.5s ease, border-color 0.5s ease;
 }
 
 .theme-card-bg:hover {
@@ -240,36 +248,50 @@ html {
 
 .theme-border {
   border-color: var(--card-border) !important;
-  transition: border-color 0.4s ease;
+  transition: border-color 0.5s ease;
 }
 
 .theme-tag-bg {
   background-color: var(--tag-bg) !important;
   color: var(--ink) !important;
   border-color: var(--card-border) !important;
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
 }
 
 .theme-primary-bg {
   background-color: var(--red) !important;
   color: #ffffff !important;
-  transition: background-color 0.4s ease;
+  transition: background-color 0.5s ease;
 }
 
 .theme-primary-text {
   color: var(--red) !important;
-  transition: color 0.4s ease;
+  transition: color 0.5s ease;
 }
 
 .theme-accent-text {
   color: var(--gold) !important;
-  transition: color 0.4s ease;
+  transition: color 0.5s ease;
 }
 
 /* Traditional Seigaiha wave pattern */
 .seigaiha-pattern {
   background-color: transparent;
-  background-image: radial-gradient(circle at 50% 100%, transparent 18px, rgba(212, 175, 106, 0.45) 19px, rgba(212, 175, 106, 0.45) 21px, transparent 22px, transparent 33px, rgba(212, 175, 106, 0.35) 34px, rgba(212, 175, 106, 0.35) 36px, transparent 37px);
+  background-image: radial-gradient(circle at 50% 100%, transparent 18px, var(--card-border) 19px, var(--card-border) 21px, transparent 22px, transparent 33px, var(--card-border) 34px, var(--card-border) 36px, transparent 37px);
   background-size: 50px 25px;
+  transition: background-image 0.5s ease;
 }
 
+/* Leaflet map styles */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  font-family: inherit;
+  background-color: var(--sf);
+}
+
+.custom-hanami-marker {
+  background: transparent;
+  border: none;
+}

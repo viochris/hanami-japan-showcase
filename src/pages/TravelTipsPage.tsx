@@ -17,7 +17,9 @@ import {
   Building2,
   CheckCircle2,
   XCircle,
-  ExternalLink
+  ExternalLink,
+  Filter,
+  ChevronDown
 } from "lucide-react";
 
 type TipCategory = "all" | "etiquette" | "emergency" | "transit" | "onsen-dining";
@@ -290,80 +292,65 @@ export const TravelTipsPage: React.FC = () => {
         </p>
       </div>
 
-      {/* 2. Interactive Navigation Filter Tabs & Search Bar */}
-      <div className="theme-card-bg p-4 sm:p-5 rounded-3xl border theme-border shadow-xs space-y-4">
-        {/* Category Pills */}
-        <div className="flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar gap-2 py-1">
-          <button
-            onClick={() => setActiveCategory("all")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0 ${
-              activeCategory === "all"
-                ? "theme-header-bg text-white shadow-xs scale-102"
-                : "theme-tag-bg text-[var(--ink)] border theme-border hover:opacity-90"
-            }`}
-          >
-            All Guidance ({TRAVEL_TIPS_DATA.length})
-          </button>
+      {/* 2. Interactive Category Filter Dropdown & Search Bar */}
+      <div className="theme-card-bg p-4 sm:p-5 rounded-3xl border theme-border shadow-xs space-y-2">
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          {/* Search input (left) */}
+          <div className="relative flex-1 w-full">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--mute)] pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder="Search guidance by keywords (e.g. chopsticks, lost wallet, onsen tattoos, police box)..."
+              className="w-full pl-11 pr-10 py-3 text-sm rounded-full bg-white border-2 theme-border focus:outline-none focus:border-[var(--red)] text-[var(--ink)] placeholder-[var(--mute)] transition-all shadow-xs"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-xs text-[var(--mute)] hover:text-[var(--ink)] cursor-pointer"
+                title="Clear search"
+              >
+                ✕
+              </button>
+            )}
+          </div>
 
-          <button
-            onClick={() => setActiveCategory("etiquette")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
-              activeCategory === "etiquette"
-                ? "theme-header-bg text-white shadow-xs scale-102"
-                : "theme-tag-bg text-[var(--ink)] border theme-border hover:opacity-90"
-            }`}
-          >
-            <AlertTriangle className="w-3.5 h-3.5 text-amber-500" />
-            <span>Cultural Etiquette & Taboos</span>
-          </button>
-
-          <button
-            onClick={() => setActiveCategory("emergency")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
-              activeCategory === "emergency"
-                ? "theme-header-bg text-white shadow-xs scale-102"
-                : "theme-tag-bg text-[var(--ink)] border theme-border hover:opacity-90"
-            }`}
-          >
-            <PhoneCall className="w-3.5 h-3.5 text-rose-500" />
-            <span>Where to Go: Emergencies & Lost Items</span>
-          </button>
-
-          <button
-            onClick={() => setActiveCategory("transit")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
-              activeCategory === "transit"
-                ? "theme-header-bg text-white shadow-xs scale-102"
-                : "theme-tag-bg text-[var(--ink)] border theme-border hover:opacity-90"
-            }`}
-          >
-            <Train className="w-3.5 h-3.5 theme-primary-text" />
-            <span>Transit & Luggage</span>
-          </button>
-
-          <button
-            onClick={() => setActiveCategory("onsen-dining")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
-              activeCategory === "onsen-dining"
-                ? "theme-header-bg text-white shadow-xs scale-102"
-                : "theme-tag-bg text-[var(--ink)] border theme-border hover:opacity-90"
-            }`}
-          >
-            <Bath className="w-3.5 h-3.5 text-cyan-600" />
-            <span>Onsen & Dining</span>
-          </button>
+          {/* Category Dropdown (on the right of search bar) */}
+          <div className="relative shrink-0 w-full sm:w-72">
+            <Filter className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 theme-primary-text pointer-events-none" />
+            <select
+              value={activeCategory}
+              onChange={e => setActiveCategory(e.target.value as TipCategory)}
+              className="w-full pl-10 pr-9 py-3 text-xs sm:text-sm font-semibold rounded-full bg-white border-2 theme-border focus:outline-none focus:border-[var(--red)] text-[var(--ink)] appearance-none cursor-pointer shadow-xs transition-all"
+              aria-label="Filter Guidance Category"
+            >
+              <option value="all">All Guidance ({TRAVEL_TIPS_DATA.length})</option>
+              <option value="etiquette">Cultural Etiquette & Taboos</option>
+              <option value="emergency">Where to Go: Emergencies & Lost Items</option>
+              <option value="transit">Transit & Luggage</option>
+              <option value="onsen-dining">Onsen & Dining</option>
+            </select>
+            <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--mute)] pointer-events-none" />
+          </div>
         </div>
 
-        {/* Search bar inside tips */}
-        <div className="relative max-w-lg mx-auto">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--mute)]" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search chopsticks, lost items, onsen tattoos, police box..."
-            className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-full bg-white border theme-border focus:outline-none focus:border-[var(--red)] text-[var(--ink)] placeholder-[var(--mute)] transition-colors shadow-2xs"
-          />
+        {/* Counter & Reset */}
+        <div className="flex items-center justify-between text-[11px] text-[var(--mute)] px-2 pt-1">
+          <span>
+            Showing <strong className="text-[var(--ink)]">{filteredTips.length}</strong> of {TRAVEL_TIPS_DATA.length} tips
+          </span>
+          {(searchQuery || activeCategory !== "all") && (
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setActiveCategory("all");
+              }}
+              className="text-xs font-semibold theme-primary-text hover:underline cursor-pointer"
+            >
+              Reset Filters
+            </button>
+          )}
         </div>
       </div>
 

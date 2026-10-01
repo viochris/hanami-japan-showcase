@@ -13,7 +13,9 @@ import {
   ChevronDown,
   Search,
   CheckCircle2,
-  Info
+  Info,
+  ArrowRight,
+  Filter
 } from "lucide-react";
 
 interface FaqPageProps {
@@ -119,13 +121,10 @@ const FAQS_DATA: FaqItem[] = [
   }
 ];
 
-export const FaqPage: React.FC<FaqPageProps> = () => {
+export const FaqPage: React.FC<FaqPageProps> = ({ onNavigate }) => {
   const [activeCategory, setActiveCategory] = useState<FaqCategory>("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [openItems, setOpenItems] = useState<Record<string, boolean>>({
-    "jr-pass-worth-it": true,
-    "crowd-avoidance-strategy": true
-  });
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
 
   const toggleItem = (id: string) => {
     setOpenItems(prev => ({
@@ -171,79 +170,65 @@ export const FaqPage: React.FC<FaqPageProps> = () => {
         </p>
       </div>
 
-      {/* 2. Interactive Category Filter Tabs & Search */}
-      <div className="theme-card-bg p-4 sm:p-5 rounded-3xl border theme-border shadow-xs space-y-4">
-        <div className="flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar gap-2 py-1">
-          <button
-            onClick={() => setActiveCategory("all")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0 ${
-              activeCategory === "all"
-                ? "theme-header-bg text-white shadow-xs scale-102"
-                : "theme-tag-bg text-[var(--ink)] border theme-border hover:opacity-90"
-            }`}
-          >
-            All Questions ({FAQS_DATA.length})
-          </button>
+      {/* 2. Interactive Category Filter Dropdown & Search Bar */}
+      <div className="theme-card-bg p-4 sm:p-5 rounded-3xl border theme-border shadow-xs space-y-2">
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          {/* Search input (left) */}
+          <div className="relative flex-1 w-full">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--mute)] pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder="Search questions by topic (e.g. JR Pass, luggage, tattoos, cash, seasons, dashi)..."
+              className="w-full pl-11 pr-10 py-3 text-sm rounded-full bg-white border-2 theme-border focus:outline-none focus:border-[var(--red)] text-[var(--ink)] placeholder-[var(--mute)] transition-all shadow-xs"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-xs text-[var(--mute)] hover:text-[var(--ink)] cursor-pointer"
+                title="Clear search"
+              >
+                ✕
+              </button>
+            )}
+          </div>
 
-          <button
-            onClick={() => setActiveCategory("transit-pass")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
-              activeCategory === "transit-pass"
-                ? "theme-header-bg text-white shadow-xs scale-102"
-                : "theme-tag-bg text-[var(--ink)] border theme-border hover:opacity-90"
-            }`}
-          >
-            <Train className="w-3.5 h-3.5 theme-primary-text" />
-            <span>JR Pass & Shinkansen</span>
-          </button>
-
-          <button
-            onClick={() => setActiveCategory("culture-onsen")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
-              activeCategory === "culture-onsen"
-                ? "theme-header-bg text-white shadow-xs scale-102"
-                : "theme-tag-bg text-[var(--ink)] border theme-border hover:opacity-90"
-            }`}
-          >
-            <Bath className="w-3.5 h-3.5 text-cyan-600" />
-            <span>Onsen & Dining</span>
-          </button>
-
-          <button
-            onClick={() => setActiveCategory("money-connectivity")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
-              activeCategory === "money-connectivity"
-                ? "theme-header-bg text-white shadow-xs scale-102"
-                : "theme-tag-bg text-[var(--ink)] border theme-border hover:opacity-90"
-            }`}
-          >
-            <CreditCard className="w-3.5 h-3.5 text-amber-600" />
-            <span>Cash, Cards & eSIM</span>
-          </button>
-
-          <button
-            onClick={() => setActiveCategory("timing-planning")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
-              activeCategory === "timing-planning"
-                ? "theme-header-bg text-white shadow-xs scale-102"
-                : "theme-tag-bg text-[var(--ink)] border theme-border hover:opacity-90"
-            }`}
-          >
-            <Calendar className="w-3.5 h-3.5 text-rose-600" />
-            <span>Timing & Crowds</span>
-          </button>
+          {/* Category Dropdown (on the right of search bar) */}
+          <div className="relative shrink-0 w-full sm:w-64">
+            <Filter className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 theme-primary-text pointer-events-none" />
+            <select
+              value={activeCategory}
+              onChange={e => setActiveCategory(e.target.value as FaqCategory)}
+              className="w-full pl-10 pr-9 py-3 text-xs sm:text-sm font-semibold rounded-full bg-white border-2 theme-border focus:outline-none focus:border-[var(--red)] text-[var(--ink)] appearance-none cursor-pointer shadow-xs transition-all"
+              aria-label="Filter FAQ Category"
+            >
+              <option value="all">All Topics ({FAQS_DATA.length})</option>
+              <option value="transit-pass">JR Pass & Shinkansen</option>
+              <option value="culture-onsen">Onsen & Dining</option>
+              <option value="money-connectivity">Cash, Cards & eSIM</option>
+              <option value="timing-planning">Timing & Crowds</option>
+            </select>
+            <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--mute)] pointer-events-none" />
+          </div>
         </div>
 
-        {/* Search input */}
-        <div className="relative max-w-md mx-auto">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--mute)]" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search JR Pass, luggage, tattoos, cash, seasons..."
-            className="w-full pl-9 pr-4 py-2 text-xs sm:text-sm rounded-full bg-white border theme-border focus:outline-none focus:border-[var(--red)] text-[var(--ink)] placeholder-[var(--mute)] transition-colors shadow-2xs"
-          />
+        {/* Counter & Reset */}
+        <div className="flex items-center justify-between text-[11px] text-[var(--mute)] px-2 pt-1">
+          <span>
+            Showing <strong className="text-[var(--ink)]">{filteredFaqs.length}</strong> of {FAQS_DATA.length} questions
+          </span>
+          {(searchQuery || activeCategory !== "all") && (
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setActiveCategory("all");
+              }}
+              className="text-xs font-semibold theme-primary-text hover:underline cursor-pointer"
+            >
+              Reset Filters
+            </button>
+          )}
         </div>
       </div>
 
@@ -310,14 +295,23 @@ export const FaqPage: React.FC<FaqPageProps> = () => {
       </div>
 
       {/* 4. Still have questions banner */}
-      <div className="theme-tag-bg p-6 sm:p-8 rounded-3xl border theme-border text-center space-y-3">
+      <div className="theme-tag-bg p-6 sm:p-8 rounded-3xl border theme-border text-center space-y-4">
         <Info className="w-6 h-6 theme-primary-text mx-auto" />
-        <h4 className="font-serif text-lg font-bold text-[var(--ink)]">
+        <h4 className="font-serif text-xl font-bold text-[var(--ink)]">
           Have a Question Not Answered Here?
         </h4>
         <p className="text-xs sm:text-sm text-[var(--mute)] max-w-lg mx-auto leading-relaxed">
           Submit your travel inquiry via our planning form. Our Kyoto and Tokyo curators review queries and weave answers into your personalized consultation.
         </p>
+        <div className="pt-2">
+          <button
+            onClick={() => onNavigate && onNavigate("plan-trip")}
+            className="px-6 py-2.5 rounded-full theme-cta-btn text-white text-xs sm:text-sm font-bold shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer inline-flex items-center gap-2"
+          >
+            <span>Consult Our Curators in Plan a Trip</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import { Breadcrumbs } from "@/src/components/navigation/Breadcrumbs";
 import { Footer } from "@/src/components/layout/Footer";
 import { SakuraPetals } from "@/src/components/decoration/SakuraPetals";
 import { SeasonalPageTransition } from "@/src/components/decoration/SeasonalPageTransition";
+import { ScrollToTop } from "@/src/components/navigation/ScrollToTop";
 import { DestinationModal } from "@/src/components/destinations/DestinationModal";
 import { HomePage } from "@/src/pages/HomePage";
 import { DestinationsPage } from "@/src/pages/DestinationsPage";
@@ -171,7 +172,7 @@ export default function App() {
   return (
     <SeasonProvider>
       <WishlistProvider>
-        <div className="relative min-h-screen flex flex-col bg-[#FFF8FA] text-[#2B2440] selection:bg-[#FFC2D1] selection:text-[#2B2440] transition-colors duration-300">
+        <div className="relative min-h-screen flex flex-col bg-[var(--sf)] text-[var(--ink)] selection:bg-[var(--p2)] selection:text-[var(--ink)] transition-colors duration-500">
           {/* Global Page-Load Seasonal Screen Wipe Transition Overlay */}
           <SeasonalPageTransition
             isTransitioning={isTransitioning}
@@ -180,28 +181,34 @@ export default function App() {
             onComplete={handleWipeComplete}
           />
 
-          {/* Subtle site-wide ambient falling seasonal particles (Sakura, Verdant, Momiji, Snow) */}
-          <SakuraPetals density="low" className="hidden sm:block" />
+          {/* Subtle site-wide background ambient falling seasonal particles (Strictly background layer, never in foreground) */}
+          <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden hidden sm:block" aria-hidden="true">
+            <SakuraPetals density="low" className="z-0" />
+          </div>
 
           {/* Global Responsive Navigation Header with Seasonal Switcher */}
-          <Header currentPage={currentPage} onNavigate={handleNavigate} />
+          <div className="relative z-30">
+            <Header currentPage={currentPage} onNavigate={handleNavigate} />
+          </div>
 
           {/* Breadcrumb Navigation Component (Tracks user flow and history) */}
-          <Breadcrumbs
-            currentPage={currentPage}
-            selectedDestination={selectedDestination}
-            destinationsCategory={destinationsCategoryFilter}
-            destinationsWishlistOnly={destinationsWishlistOnly}
-            planTripDestination={planTripDestination}
-            planTripPackageTitle={planTripPackageTitle}
-            onNavigate={handleNavigate}
-            onCloseDestinationModal={() => setSelectedDestination(null)}
-            onGoBack={handleGoBack}
-            canGoBack={navHistory.length > 1 || selectedDestination !== null}
-          />
+          <div className="relative z-20">
+            <Breadcrumbs
+              currentPage={currentPage}
+              selectedDestination={selectedDestination}
+              destinationsCategory={destinationsCategoryFilter}
+              destinationsWishlistOnly={destinationsWishlistOnly}
+              planTripDestination={planTripDestination}
+              planTripPackageTitle={planTripPackageTitle}
+              onNavigate={handleNavigate}
+              onCloseDestinationModal={() => setSelectedDestination(null)}
+              onGoBack={handleGoBack}
+              canGoBack={navHistory.length > 1 || selectedDestination !== null}
+            />
+          </div>
 
           {/* Main Content Area: 7 Pages (Section 6) */}
-          <main className="flex-1">
+          <main className="flex-1 relative z-10">
             {currentPage === "home" && (
               <HomePage
                 onNavigate={handleNavigate}
@@ -249,7 +256,12 @@ export default function App() {
           />
 
           {/* Global Footer (Section 6 & AC12) */}
-          <Footer onNavigate={handleNavigate} />
+          <div className="relative z-10">
+            <Footer onNavigate={handleNavigate} />
+          </div>
+
+          {/* Floating Scroll to Top button */}
+          <ScrollToTop />
         </div>
       </WishlistProvider>
     </SeasonProvider>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Menu, X, Heart } from "lucide-react";
-import { useWishlist } from "@/src/context/WishlistContext";
+import { Menu, X } from "lucide-react";
 import { SeasonToggle } from "@/src/components/decoration/SeasonToggle";
 
 export type PageId =
@@ -19,7 +18,6 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { count: wishlistCount } = useWishlist();
 
   const navLinks: Array<{ id: PageId; label: string }> = [
     { id: "home", label: "Home" },
@@ -44,8 +42,15 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
           <div className="flex items-center gap-4">
             <button
               onClick={() => handleNav("home")}
-              className="text-left flex items-center cursor-pointer focus-visible:outline-2 focus-visible:outline-[#D4AF6A] rounded-sm py-1 group"
+              className="text-left flex items-center gap-2.5 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#D4AF6A] rounded-sm py-1 group"
+              aria-label="Hanami Japan Home"
             >
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-linear-to-br from-[#8F2429] to-[#701A1E] border border-[#D4AF6A]/80 flex items-center justify-center shadow-xs group-hover:scale-105 group-hover:border-[#D4AF6A] transition-all shrink-0">
+                <svg viewBox="0 0 24 24" className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFF0F5]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4 7h16M6 7v11M18 7v11M3 9.5h18M8 9.5h8" />
+                  <circle cx="12" cy="5" r="1.5" fill="#D4AF6A" stroke="none" />
+                </svg>
+              </div>
               <span className="font-serif text-xl sm:text-2xl md:text-3xl font-bold tracking-wide text-white group-hover:tracking-wider transition-all duration-300">
                 Hanami
                 <i className="not-italic text-[#D4AF6A] font-serif text-sm sm:text-base font-normal ml-2 hidden min-[420px]:inline" aria-hidden="true">
@@ -78,25 +83,10 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
             })}
           </nav>
 
-          {/* Zone 3: Actions (Seasonal Theme Toggle + Wishlist icon + Persistent CTA Button + Mobile Hamburger) */}
+          {/* Zone 3: Actions (Seasonal Theme Toggle + Persistent CTA Button + Mobile Hamburger) */}
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Seasonal Theme Switcher */}
             <SeasonToggle />
-
-            {/* Wishlist Shortcut */}
-            <button
-              onClick={() => handleNav("destinations", { filterWishlist: true })}
-              title="View your saved wishlist"
-              aria-label={`View wishlist, ${wishlistCount} saved`}
-              className="relative p-2 text-[#FFF0F5]/80 hover:text-white transition-colors rounded-full hover:bg-white/10 cursor-pointer"
-            >
-              <Heart className={`w-5 h-5 ${wishlistCount > 0 ? "fill-[var(--red)] text-[var(--red)]" : ""}`} />
-              {wishlistCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full theme-primary-bg text-white text-[10px] font-bold flex items-center justify-center">
-                  {wishlistCount}
-                </span>
-              )}
-            </button>
 
             {/* Persistent CTA Button (Always visible on mobile & desktop) */}
             <button

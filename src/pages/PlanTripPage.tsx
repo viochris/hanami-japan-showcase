@@ -4,7 +4,7 @@ import { KanjiWatermark } from "@/src/components/decoration/KanjiWatermark";
 import { PageId } from "@/src/components/layout/Header";
 import { ItineraryBuilder } from "@/src/components/itinerary/ItineraryBuilder";
 import { useSeason } from "@/src/context/SeasonContext";
-import { Calendar, FileText, CheckCircle2, ArrowRight, Sparkles, Check } from "lucide-react";
+import { Calendar, FileText, CheckCircle2, ArrowRight, Check } from "lucide-react";
 
 interface PlanTripPageProps {
   initialDestination?: string;
@@ -33,11 +33,6 @@ export const PlanTripPage: React.FC<PlanTripPageProps> = ({
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [attachedItinerary, setAttachedItinerary] = useState(false);
 
-  // Gemini AI consultation summary states
-  const [isGeneratingAiSummary, setIsGeneratingAiSummary] = useState(false);
-  const [aiSummaryError, setAiSummaryError] = useState<string | null>(null);
-  const [aiSummarySuccess, setAiSummarySuccess] = useState(false);
-
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -47,42 +42,6 @@ export const PlanTripPage: React.FC<PlanTripPageProps> = ({
       setActiveTab("consultation");
     }
   }, [initialDestination, initialPackageTitle]);
-
-  const handleGenerateConsultationAiSummary = async () => {
-    setIsGeneratingAiSummary(true);
-    setAiSummaryError(null);
-    try {
-      const res = await fetch("/api/generate-itinerary-summary", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          destinations: [destination],
-          travelWindow,
-          partySize,
-          itineraryText: notes,
-          season: seasonInfo.label
-        })
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to generate summary");
-      }
-
-      setNotes(prev => {
-        const header = `[Cultural Trip Narrative • ${seasonInfo.label}]\n${data.summary}`;
-        if (!prev.trim()) return header;
-        return `${prev.trim()}\n\n---\n${header}`;
-      });
-
-      setAiSummarySuccess(true);
-      setTimeout(() => setAiSummarySuccess(false), 3000);
-    } catch (err: any) {
-      setAiSummaryError(err.message || "Failed to generate summary");
-    } finally {
-      setIsGeneratingAiSummary(false);
-    }
-  };
 
   const handleApplyItineraryToForm = (itineraryText: string) => {
     setNotes(prev => {
@@ -264,32 +223,14 @@ export const PlanTripPage: React.FC<PlanTripPageProps> = ({
               <label className="sm:col-span-2 flex flex-col gap-1.5 text-xs sm:text-sm font-medium text-[var(--ink)]">
                 <div className="flex items-center justify-between flex-wrap gap-2">
                   <span>Itinerary Notes & Special Wishes</span>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={handleGenerateConsultationAiSummary}
-                      disabled={isGeneratingAiSummary}
-                      className="text-[11px] font-bold theme-cta-btn px-2.5 py-1 rounded-md text-white flex items-center gap-1 shadow-2xs hover:scale-102 transition-all cursor-pointer disabled:opacity-50"
-                      title="Write a short culturally-informed paragraph using Gemini based on selected destination and details"
-                    >
-                      <Sparkles className={`w-3 h-3 ${isGeneratingAiSummary ? "animate-spin text-[var(--gold)]" : "text-white"}`} />
-                      <span>{isGeneratingAiSummary ? "Writing Narrative…" : aiSummarySuccess ? "Narrative Appended!" : "Generate AI Summary"}</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab("itinerary")}
-                      className="text-[11px] theme-primary-text font-bold hover:underline cursor-pointer"
-                    >
-                      Open Itinerary Builder →
-                    </button>
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("itinerary")}
+                    className="text-[11px] theme-primary-text font-bold hover:underline cursor-pointer"
+                  >
+                    Open Itinerary Builder →
+                  </button>
                 </div>
-
-                {aiSummaryError && (
-                  <p className="text-xs text-red-600 bg-red-50 p-2 rounded border border-red-200">
-                    {aiSummaryError}
-                  </p>
-                )}
 
                 <textarea
                   name="nt"

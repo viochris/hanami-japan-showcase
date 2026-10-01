@@ -35,8 +35,21 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({
 
   return (
     <article className="group relative flex flex-col h-full theme-card-bg rounded-3xl overflow-hidden border theme-border transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl shadow-xs will-change-transform">
+      {/* Top Header Row: Raised Index Counter & Japanese Name */}
+      <div className="px-4.5 pt-3.5 pb-2 flex items-center justify-between text-xs z-10">
+        {formattedIndex ? (
+          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-white/95 border theme-border text-[10px] font-bold tracking-widest uppercase text-[var(--ink)] shadow-2xs">
+            {formattedIndex}
+          </span>
+        ) : <span />}
+
+        <span className="font-serif font-bold text-xs theme-primary-text tracking-wider">
+          {cleanJapaneseName}
+        </span>
+      </div>
+
       {/* Thumbnail Container */}
-      <div className="relative aspect-16/10 overflow-hidden bg-[#2B2440]/5 m-3 mb-0 rounded-2xl arch-photo">
+      <div className="relative aspect-16/10 overflow-hidden bg-[#2B2440]/5 mx-3 mb-0 rounded-2xl arch-photo">
         <img
           src={heroImage.url}
           alt={`Photograph of ${destination.name}`}
@@ -46,18 +59,6 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({
 
         {/* Gradient scrim for text legibility */}
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-
-        {/* Japanese Name watermark top right */}
-        <div className="absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-black/40 backdrop-blur-xs text-white/95 font-serif font-bold text-xs border border-white/20">
-          {cleanJapaneseName}
-        </div>
-
-        {/* Index counter top left */}
-        {formattedIndex && (
-          <div className="absolute top-3 left-3 px-2 py-0.5 rounded-md bg-white/90 backdrop-blur-xs text-[10px] font-bold tracking-widest uppercase text-[var(--ink)] shadow-2xs">
-            {formattedIndex}
-          </div>
-        )}
 
         {/* Flat Bottom Region badge */}
         <div className="absolute bottom-2.5 left-3.5 right-3.5 flex items-center justify-between text-white drop-shadow-sm">

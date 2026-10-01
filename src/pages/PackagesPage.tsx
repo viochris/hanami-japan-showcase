@@ -41,7 +41,7 @@ export interface TravelPackage {
 const PACKAGES_DATA: TravelPackage[] = [
   {
     id: "kyoto-heritage",
-    title: "Kyoto Ancient Zen & Bamboo Sanctuaries",
+    title: "Kyoto Ancient Zen & Bamboo Pathways",
     japaneseTitle: "京都 禅と竹林の古道",
     tagline: "A contemplative route exploring Kyoto's sacred torii paths, shimmering pavilions, and whispering bamboo groves.",
     badge: "Most Cherished",
@@ -90,7 +90,7 @@ const PACKAGES_DATA: TravelPackage[] = [
     priceUsdEst: "~$630 – $960 USD / person",
     idealSeason: "April to November (Clear Skies)",
     pacing: "Immersive",
-    heroImage: "https://images.unsplash.com/photo-1528164344705-475426879c0d?auto=format&fit=crop&w=800&q=80",
+    heroImage: "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80",
     dailyHighlights: [
       {
         day: "Day 1",
@@ -219,7 +219,7 @@ const PACKAGES_DATA: TravelPackage[] = [
     priceUsdEst: "~$900 – $1,320 USD / person",
     idealSeason: "April to October",
     pacing: "Moderate",
-    heroImage: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=800&q=80",
+    heroImage: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=800&q=80",
     dailyHighlights: [
       {
         day: "Day 1–2",
@@ -373,13 +373,17 @@ export const PackagesPage: React.FC<PackagesPageProps> = ({
             >
               <div>
                 {/* Hero Header with photo & badge */}
-                <div className="relative aspect-16/9 sm:aspect-21/9 overflow-hidden bg-black/5">
+                <div className="relative aspect-16/10 sm:aspect-16/9 overflow-hidden bg-black/5">
                   <img
                     src={pkg.heroImage}
                     alt={pkg.title}
+                    onError={e => {
+                      e.currentTarget.src =
+                        "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80";
+                    }}
                     className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/35 to-transparent pointer-events-none" />
 
                   {/* Top Badge */}
                   <div className="absolute top-4 left-4 flex items-center gap-2">
@@ -391,12 +395,12 @@ export const PackagesPage: React.FC<PackagesPageProps> = ({
                     </span>
                   </div>
 
-                  {/* Bottom title in hero */}
-                  <div className="absolute bottom-3 left-4 right-4 text-white">
+                  {/* Bottom title in hero without truncate cutoff */}
+                  <div className="absolute bottom-3.5 left-4 right-4 text-white space-y-0.5">
                     <span className="text-xs font-serif text-[var(--gold)] font-bold block">
                       {pkg.japaneseTitle}
                     </span>
-                    <h3 className="font-serif text-xl sm:text-2xl font-bold truncate">
+                    <h3 className="font-serif text-lg sm:text-2xl font-bold leading-snug line-clamp-2">
                       {pkg.title}
                     </h3>
                   </div>
@@ -404,15 +408,17 @@ export const PackagesPage: React.FC<PackagesPageProps> = ({
 
                 {/* Body Content */}
                 <div className="p-6 sm:p-7 space-y-5">
-                  {/* Tagline */}
-                  <p className="text-xs sm:text-sm text-[var(--ink)]/85 leading-relaxed font-normal">
-                    {pkg.tagline}
-                  </p>
+                  {/* Tagline with consistent height */}
+                  <div className="min-h-[2.8rem] flex items-start">
+                    <p className="text-xs sm:text-sm text-[var(--ink)]/85 leading-relaxed font-normal">
+                      {pkg.tagline}
+                    </p>
+                  </div>
 
-                  {/* Included destinations clickable pills */}
-                  <div className="space-y-1.5">
+                  {/* Included destinations clickable pills with consistent minimum height */}
+                  <div className="space-y-1.5 min-h-[4.8rem]">
                     <span className="text-[11px] font-bold text-[var(--mute)] uppercase tracking-wider block">
-                      Included Sanctuaries ({dests.length}):
+                      Included Destinations ({dests.length}):
                     </span>
                     <div className="flex items-center flex-wrap gap-1.5">
                       {dests.map(d => (
@@ -428,8 +434,8 @@ export const PackagesPage: React.FC<PackagesPageProps> = ({
                     </div>
                   </div>
 
-                  {/* Price & Duration Grid */}
-                  <div className="grid grid-cols-2 gap-3 p-4 rounded-2xl bg-white/60 border theme-border">
+                  {/* Price & Duration Grid aligned identically */}
+                  <div className="grid grid-cols-2 gap-3 p-4 rounded-2xl bg-white/70 border theme-border min-h-[5.5rem] items-center">
                     <div className="space-y-0.5">
                       <span className="text-[10px] text-[var(--mute)] uppercase tracking-wider font-semibold block flex items-center gap-1">
                         <Clock className="w-3 h-3 text-[var(--gold)]" />
@@ -438,7 +444,7 @@ export const PackagesPage: React.FC<PackagesPageProps> = ({
                       <span className="font-serif font-bold text-sm sm:text-base text-[var(--ink)] block">
                         {pkg.duration}
                       </span>
-                      <span className="text-[10px] text-[var(--mute)]">
+                      <span className="text-[10px] text-[var(--mute)] truncate block">
                         {pkg.idealSeason}
                       </span>
                     </div>
@@ -450,39 +456,44 @@ export const PackagesPage: React.FC<PackagesPageProps> = ({
                       <span className="font-serif font-bold text-base sm:text-lg theme-primary-text block">
                         {pkg.priceYen}
                       </span>
-                      <span className="text-[10px] text-[var(--mute)]">
+                      <span className="text-[10px] text-[var(--mute)] block">
                         {pkg.priceUsdEst}
                       </span>
                     </div>
                   </div>
 
-                  {/* Day-by-Day Highlights Accordion / Timeline */}
+                  {/* Day-by-Day Highlights Accordion / Timeline with clean scroll container */}
                   <div className="space-y-2.5 pt-1">
-                    <span className="text-[11px] font-bold text-[var(--mute)] uppercase tracking-wider block">
-                      Daily Narrative Arc:
-                    </span>
-                    <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-bold text-[var(--mute)] uppercase tracking-wider">
+                        Daily Narrative Arc ({pkg.dailyHighlights.length} Days):
+                      </span>
+                      <span className="text-[10px] text-[var(--mute)] italic">
+                        Scroll for full flow
+                      </span>
+                    </div>
+                    <div className="space-y-2 max-h-[16.5rem] overflow-y-auto pr-1 [scrollbar-width:thin] [scrollbar-color:var(--card-border)_transparent]">
                       {pkg.dailyHighlights.map((dh, hIdx) => (
                         <div
                           key={hIdx}
-                          className="flex items-start gap-2.5 text-xs text-[var(--ink)]/80 leading-relaxed bg-white/40 p-2.5 rounded-xl border theme-border"
+                          className="flex items-start gap-2.5 text-xs text-[var(--ink)]/80 leading-relaxed bg-white/50 p-2.5 rounded-xl border theme-border"
                         >
-                          <span className="font-serif font-bold text-[var(--red)] shrink-0">
+                          <span className="font-serif font-bold text-[var(--red)] shrink-0 min-w-[3.4rem]">
                             {dh.day}
                           </span>
-                          <div>
+                          <div className="space-y-0.5">
                             <strong className="text-[var(--ink)] block">
                               {dh.title}
                             </strong>
-                            <span className="text-[var(--mute)]">{dh.desc}</span>
+                            <span className="text-[var(--mute)] leading-relaxed">{dh.desc}</span>
                           </div>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  {/* Inclusions summary */}
-                  <div className="pt-2 border-t theme-border space-y-1.5 text-xs text-[var(--mute)]">
+                  {/* Inclusions summary with consistent height */}
+                  <div className="pt-2 border-t theme-border space-y-1.5 text-xs text-[var(--mute)] min-h-[6.5rem]">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--ink)] block">
                       Planning Inclusions:
                     </span>
@@ -499,7 +510,7 @@ export const PackagesPage: React.FC<PackagesPageProps> = ({
               </div>
 
               {/* Bottom Card Action */}
-              <div className="p-6 pt-0">
+              <div className="p-6 pt-3 border-t theme-border/60">
                 <button
                   onClick={() =>
                     onNavigate("plan-trip", {

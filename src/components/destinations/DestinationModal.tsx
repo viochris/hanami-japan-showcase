@@ -68,11 +68,11 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="relative w-full max-w-[920px] bg-linear-to-b from-[#FFF8FA] to-[#FFEAF1] rounded-2xl shadow-2xl overflow-hidden border border-[#F7C4D6] my-auto text-[#2B2440] max-h-[92vh] flex flex-col">
+      <div className="relative w-full max-w-[920px] theme-card-bg rounded-2xl shadow-2xl overflow-hidden border theme-border my-auto text-[var(--ink)] max-h-[92vh] flex flex-col">
         {/* Sticky Close Button (Matching Reference .x) */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-[#2B2440] text-white flex items-center justify-center hover:bg-[#1C182A] transition-colors cursor-pointer shadow-md"
+          className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full theme-header-bg text-white flex items-center justify-center hover:opacity-90 transition-opacity cursor-pointer shadow-md"
           aria-label="Close dialog"
         >
           <X className="w-5 h-5" />
@@ -82,10 +82,10 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
         <div className="overflow-y-auto p-5 sm:p-8 space-y-6 flex-1">
           {/* Tags */}
           <div className="flex items-center gap-2 flex-wrap pr-12">
-            <span className="badge text-xs font-bold uppercase tracking-wider bg-[#2B2440] text-white px-2.5 py-0.5 rounded-md">
+            <span className="badge text-xs font-bold uppercase tracking-wider theme-header-bg text-white px-2.5 py-0.5 rounded-md">
               {destination.category}
             </span>
-            <span className="season text-xs font-bold bg-[#F7E9C9] text-[#6B5220] px-2.5 py-0.5 rounded-md">
+            <span className="season text-xs font-bold theme-tag-bg px-2.5 py-0.5 rounded-md border theme-border">
               {destination.bestSeason}
             </span>
           </div>
@@ -187,11 +187,11 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
           </div>
 
           {/* Local Insight / Did You Know? Box (User explicit enhancement request) */}
-          <div className="p-4 rounded-xl border border-[#F7C4D6] bg-[#FFF0F5] text-xs sm:text-sm text-[#2B2440] flex items-start gap-2.5">
-            <Sparkles className="w-4 h-4 text-[#C9414D] shrink-0 mt-0.5" />
+          <div className="p-4 rounded-xl border theme-border theme-tag-bg text-xs sm:text-sm text-[var(--ink)] flex items-start gap-2.5">
+            <Sparkles className="w-4 h-4 theme-primary-text shrink-0 mt-0.5" />
             <div>
-              <strong className="font-bold text-[#2B2440]">Local Insight / Did You Know?</strong>
-              <p className="m-0 text-[#2B2440]/90 leading-relaxed mt-0.5">
+              <strong className="font-bold text-[var(--ink)]">Local Insight / Did You Know?</strong>
+              <p className="m-0 text-[var(--ink)]/90 leading-relaxed mt-0.5">
                 {destination.localInsight}
               </p>
             </div>
@@ -199,7 +199,7 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
 
           {/* Facts Grid (Matching Reference .facts) */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="bg-white border border-[#F0DBE4] rounded-xl p-3 text-xs sm:text-sm">
+            <div className="theme-tag-bg border theme-border rounded-xl p-3 text-xs sm:text-sm">
               <b className="block text-[10px] tracking-wider uppercase text-[#8B7E8C] font-bold mb-0.5">
                 Best season
               </b>

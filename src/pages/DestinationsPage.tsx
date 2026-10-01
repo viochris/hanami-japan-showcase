@@ -15,7 +15,9 @@ import {
   X,
   LayoutGrid,
   Compass,
-  MapPin
+  MapPin,
+  Filter,
+  ChevronDown
 } from "lucide-react";
 
 export type ThematicCategory = "All" | "Nature" | "City" | "History" | "Onsen";
@@ -205,103 +207,85 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
       ) : (
         <>
           {/* ==============================================================
-              STICKY CATEGORY FILTER & SEARCH BAR
-              Filters placed on top, search bar placed cleanly below
+              NON-STICKY UNIFIED SEARCH & CATEGORY DROPDOWN
              ============================================================== */}
-          <div className="sticky top-16 sm:top-18 z-40 theme-card-bg backdrop-blur-md border-y theme-border shadow-xs py-3 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 transition-all">
-            <div className="max-w-[1160px] mx-auto flex flex-col items-center gap-2.5">
-              {/* 1. FILTER-FILTER DI ATAS */}
-              <div
-                role="tablist"
-                aria-label="Filter destinations by category"
-                className="flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar py-1 gap-1.5 sm:gap-2 w-full"
-              >
-                {THEMATIC_CATEGORIES.map(cat => {
-                  const Icon = cat.icon;
-                  const isSelected = activeCategory === cat.id;
-                  const count = categoryCounts[cat.id];
+          <div className="theme-card-bg p-4 sm:p-5 rounded-3xl border theme-border shadow-xs space-y-2">
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              {/* Search input (takes all width on left) */}
+              <div className="relative flex-1 w-full">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--mute)] pointer-events-none" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={e => setSearchQuery(e.target.value)}
+                  placeholder="Search Kyoto, Tokyo, Castle, onsen, shrine, bamboo, snow..."
+                  className="w-full pl-11 pr-10 py-3 text-sm rounded-full bg-white border-2 theme-border focus:outline-none focus:border-[var(--red)] text-[var(--ink)] placeholder-[var(--mute)] shadow-xs transition-all"
+                />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-xs text-[var(--mute)] hover:text-[var(--ink)] cursor-pointer"
+                    title="Clear search"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
 
-                  return (
-                    <button
-                      key={cat.id}
-                      role="tab"
-                      aria-selected={isSelected}
-                      onClick={() => setActiveCategory(cat.id)}
-                      className={`group relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer shrink-0 ${
-                        isSelected
-                          ? "theme-header-bg text-white shadow-md scale-102"
-                          : "theme-tag-bg text-[var(--ink)] border theme-border hover:opacity-90"
-                      }`}
-                    >
-                      <Icon
-                        className={`w-3.5 h-3.5 transition-transform duration-300 group-hover:scale-110 ${
-                          isSelected ? "text-[var(--gold)]" : "theme-primary-text"
-                        }`}
-                      />
-                      <span>{cat.label}</span>
-                      <span
-                        className={`text-[10px] font-serif transition-opacity ${
-                          isSelected ? "text-white/80" : "text-[var(--mute)]"
-                        }`}
-                      >
-                        {cat.japanese}
-                      </span>
-                      <span
-                        className={`ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
-                          isSelected
-                            ? "bg-white/20 text-white"
-                            : "bg-white/60 text-[var(--ink)]/70"
-                        }`}
-                      >
-                        {count}
-                      </span>
-                    </button>
-                  );
-                })}
+              {/* Category Dropdown (on the right of search bar) + Saved Wishlist */}
+              <div className="relative shrink-0 w-full sm:w-auto flex items-center gap-2">
+                <div className="relative flex-1 sm:w-56">
+                  <Filter className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 theme-primary-text pointer-events-none" />
+                  <select
+                    value={activeCategory}
+                    onChange={e => setActiveCategory(e.target.value as ThematicCategory)}
+                    className="w-full pl-10 pr-9 py-3 text-xs sm:text-sm font-semibold rounded-full bg-white border-2 theme-border focus:outline-none focus:border-[var(--red)] text-[var(--ink)] appearance-none cursor-pointer shadow-xs transition-all"
+                    aria-label="Filter by Category"
+                  >
+                    {THEMATIC_CATEGORIES.map(cat => (
+                      <option key={cat.id} value={cat.id}>
+                        {cat.label} {cat.japanese} ({categoryCounts[cat.id]})
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className="absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--mute)] pointer-events-none" />
+                </div>
 
-                {/* Quick Wishlist Toggle */}
+                {/* Saved Wishlist Toggle Button */}
                 <button
                   onClick={() => setWishlistOnly(!wishlistOnly)}
-                  className={`flex items-center gap-1.5 px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-300 cursor-pointer shrink-0 border ${
+                  className={`px-4 py-3 rounded-full text-xs font-bold transition-all duration-300 cursor-pointer shrink-0 border-2 flex items-center gap-1.5 shadow-xs ${
                     wishlistOnly
-                      ? "theme-primary-bg text-white border-transparent shadow-sm"
-                      : "bg-white/80 theme-primary-text theme-border hover:bg-white"
+                      ? "theme-primary-bg text-white border-transparent"
+                      : "bg-white text-[var(--ink)] theme-border hover:bg-white/80"
                   }`}
                   title="Filter by saved destinations"
                   aria-pressed={wishlistOnly}
                 >
-                  <Heart className={`w-3.5 h-3.5 ${wishlistOnly ? "fill-white" : ""}`} />
-                  <span className="hidden sm:inline">Saved</span>
+                  <Heart className={`w-3.5 h-3.5 ${wishlistOnly ? "fill-white text-white" : "text-[var(--red)]"}`} />
+                  <span className="hidden md:inline">Saved</span>
                   <span>({wishlistCount})</span>
                 </button>
               </div>
+            </div>
 
-              {/* 2. SEARCH BAR DI BAWAH */}
-              <div className="w-full flex items-center justify-center gap-3">
-                <div className="relative w-full max-w-lg">
-                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--mute)]" />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    placeholder="Search Kyoto, Tokyo, Castle, onsen, shrine..."
-                    className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-full bg-white border theme-border focus:outline-none focus:border-[var(--red)] text-[var(--ink)] placeholder-[var(--mute)] shadow-2xs transition-colors"
-                  />
-                  {searchQuery && (
-                    <button
-                      onClick={() => setSearchQuery("")}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--mute)] hover:text-[var(--red)] cursor-pointer p-0.5"
-                      title="Clear search"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-                </div>
-
-                <span className="text-[11px] text-[var(--mute)] shrink-0 hidden sm:inline">
-                  Showing <strong className="text-[var(--ink)]">{filteredDestinations.length}</strong> of 16
-                </span>
-              </div>
+            {/* Counter text and Reset */}
+            <div className="flex items-center justify-between text-[11px] text-[var(--mute)] px-2 pt-1">
+              <span>
+                Showing <strong className="text-[var(--ink)]">{filteredDestinations.length}</strong> of 16 destinations
+              </span>
+              {(searchQuery || activeCategory !== "All" || wishlistOnly) && (
+                <button
+                  onClick={() => {
+                    setSearchQuery("");
+                    setActiveCategory("All");
+                    setWishlistOnly(false);
+                  }}
+                  className="text-xs font-semibold theme-primary-text hover:underline cursor-pointer"
+                >
+                  Reset Filters
+                </button>
+              )}
             </div>
           </div>
 
@@ -343,15 +327,15 @@ export const DestinationsPage: React.FC<DestinationsPageProps> = ({
               </div>
             ) : (
               /* Empty Filter State */
-              <div className="text-center py-16 bg-[#FFF8FA] rounded-3xl border border-[#F7C4D6] max-w-lg mx-auto p-8 space-y-4 shadow-sm animate-in fade-in duration-300">
-                <div className="w-12 h-12 rounded-full bg-[#FFEAF1] text-[#C9414D] flex items-center justify-center mx-auto text-xl font-serif">
+              <div className="text-center py-16 theme-card-bg rounded-3xl border theme-border max-w-lg mx-auto p-8 space-y-4 shadow-sm animate-in fade-in duration-300">
+                <div className="w-12 h-12 rounded-full theme-tag-bg theme-primary-text flex items-center justify-center mx-auto text-xl font-serif border theme-border">
                   空
                 </div>
                 <div className="space-y-1">
-                  <h3 className="font-serif text-lg font-bold text-[#2B2440]">
+                  <h3 className="font-serif text-lg font-bold text-[var(--ink)]">
                     No destinations found
                   </h3>
-                  <p className="text-xs text-[#8B7E8C] max-w-sm mx-auto">
+                  <p className="text-xs text-[var(--mute)] max-w-sm mx-auto">
                     {wishlistOnly
                       ? "You haven't saved any destinations to your wishlist yet. Tap the heart on any card to save it."
                       : `No destination in "${activeCategory}" matches "${searchQuery}".`}
