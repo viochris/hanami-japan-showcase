@@ -322,11 +322,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         {/* Bottom Legal Disclaimer */}
         <div className="pt-8 text-xs text-[#C9B9CC] space-y-2 leading-relaxed">
           <p className="max-w-4xl">
-            This website is a curated editorial cultural showcase. All names, contact details, opening hours, and ballpark prices are provided for travel planning and cultural appreciation.
+            Hanami is a fictional concept brand created for a portfolio project. The curator team, testimonials, email addresses, phone numbers, and sample packages are entirely fictional and created solely for demonstration purposes. If any listed contact detail happens to belong to a real individual or organization, we sincerely apologize for the coincidence, and please notify us by opening an issue on GitHub so we can update it promptly. Destination details and prices are illustrative, so please verify official operating hours and travel costs directly with local venues before traveling.
           </p>
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pt-2 border-t border-white/10 text-[11px] text-[#C9B9CC]/80">
-            <span>© 2026 Hanami Journal (花見). All cultural rights reserved.</span>
-            <span>Photography credited via Wikimedia Commons & Creative Commons licenses.</span>
+            <span>© 2026 Hanami Journal (花見). Portfolio concept project.</span>
+            <span>Photography credited via Wikimedia Commons and Creative Commons licenses.</span>
           </div>
         </div>
       </div>

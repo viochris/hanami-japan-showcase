@@ -416,9 +416,14 @@ export const OurStoryPage: React.FC<OurStoryPageProps> = ({ onNavigate }) => {
       {/* 6. Meet the Curators & Cultural Historians */}
       <div className="space-y-8 pt-4">
         <div className="text-center space-y-2 max-w-4xl mx-auto">
-          <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--gold)]">
-            Guardians of the Journal
-          </span>
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--gold)]">
+              Guardians of the Journal
+            </span>
+            <span className="text-[10px] text-[var(--mute)] bg-black/5 dark:bg-white/5 border theme-border px-2.5 py-0.5 rounded-full font-medium">
+              Fictional team (concept project)
+            </span>
+          </div>
           <h2 className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--ink)] sm:whitespace-nowrap">
             Meet the Curators & Cultural Historians
           </h2>
