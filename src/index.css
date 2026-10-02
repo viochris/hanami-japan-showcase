@@ -121,13 +121,14 @@ body {
               radial-gradient(760px 520px at 100% 28%, var(--p3), transparent 60%),
               linear-gradient(var(--p2), var(--sf) 55%, var(--bg)) fixed;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
   line-height: 1.65;
   transition: background 0.5s ease, color 0.4s ease;
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 /* Hanko Japanese seal stamp */

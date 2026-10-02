@@ -18,6 +18,16 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 8);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks: Array<{ id: PageId; label: string }> = [
     { id: "home", label: "Home" },
@@ -35,7 +45,13 @@ export const Header: React.FC<HeaderProps> = ({ currentPage, onNavigate }) => {
   };
 
   return (
-    <header className="sticky top-0 z-50 theme-header-bg text-[#FFF0F5] border-b shadow-md transition-colors">
+    <header
+      className={`sticky top-0 z-50 theme-header-bg text-[#FFF0F5] border-b transition-all duration-300 ${
+        isScrolled
+          ? "shadow-xl border-white/20 py-0"
+          : "shadow-md border-transparent py-0.5"
+      }`}
+    >
       <div className="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18 gap-3 sm:gap-4">
           {/* Zone 1: Brand Wordmark with gold kanji accent matching reference */}

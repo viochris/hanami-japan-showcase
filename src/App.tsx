@@ -186,10 +186,8 @@ export default function App() {
             <SakuraPetals density="low" className="z-0" />
           </div>
 
-          {/* Global Responsive Navigation Header with Seasonal Switcher */}
-          <div className="relative z-30">
-            <Header currentPage={currentPage} onNavigate={handleNavigate} />
-          </div>
+          {/* Global Responsive Navigation Header with Seasonal Switcher (Sticky at top of screen) */}
+          <Header currentPage={currentPage} onNavigate={handleNavigate} />
 
           {/* Breadcrumb Navigation Component (Tracks user flow and history) */}
           <div className="relative z-20">
