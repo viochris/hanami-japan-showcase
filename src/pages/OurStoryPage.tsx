@@ -120,7 +120,7 @@ const MILESTONES = [
     season: "Present Day (今)",
     title: "Hanami Independent Journal: Preserving Mindful Travel",
     period: "2026 • Read by contemplative travelers worldwide",
-    desc: "Today, Hanami is read by travelers across more than forty countries who reject frantic, whirlwind travel in favor of calm, contemplative discovery. We remain stubbornly independent: we accept zero sponsorship money from prefecture tourism boards, zero sponsored hotel comps, and zero algorithmic advertising. Every guide remains calm, beautifully paced, and rooted in authentic Japanese cultural philosophy. We believe that when travelers arrive with patience, curiosity, and respect, travel ceases to be consumption—it becomes an enduring exchange of grace between cultures that enriches both visitor and sanctuary for decades to come.",
+    desc: "Today, Hanami is read by travelers across more than forty countries who reject frantic, whirlwind travel in favor of calm, contemplative discovery. We remain stubbornly independent: we accept zero sponsorship money from prefecture tourism boards, zero sponsored hotel comps, and zero algorithmic advertising. Every guide remains calm, beautifully paced, and rooted in authentic Japanese cultural philosophy. We believe that when travelers arrive with patience, curiosity, and respect, travel ceases to be consumption, it becomes an enduring exchange of grace between cultures that enriches both visitor and sanctuary for decades to come.",
     keyTakeaway: "100% self-funded editorial independence dedicated to respectful travel."
   }
 ];
@@ -154,7 +154,7 @@ const CULTURAL_PHILOSOPHIES = [
     kanji: "幽",
     name: "Yūgen (幽玄)",
     title: "Subtle Mystery",
-    desc: "Appreciating the beauty that remains unseen or implied—mist veiling mountain cedar groves, shadow in timber alcoves, and evening temple bells."
+    desc: "Appreciating the beauty that remains unseen or implied, such as mist veiling mountain cedar groves, shadow in timber alcoves, and evening temple bells."
   },
   {
     kanji: "侘",
@@ -218,7 +218,7 @@ export const OurStoryPage: React.FC<OurStoryPageProps> = ({ onNavigate }) => {
         </h1>
 
         <p className="text-sm sm:text-base text-[var(--mute)] max-w-2xl mx-auto leading-relaxed">
-          Hanami was born from an unyielding conviction: travel in Japan is not about conquering landmarks like items on a checklist—it is about entering a quiet, respectful dialogue with centuries of mindful living.
+          Hanami was born from an unyielding conviction: travel in Japan is not about conquering landmarks like items on a checklist, it is about entering a quiet, respectful dialogue with centuries of mindful living.
         </p>
       </div>
 
@@ -269,7 +269,7 @@ export const OurStoryPage: React.FC<OurStoryPageProps> = ({ onNavigate }) => {
                 Our Guiding Aesthetic
               </span>
               <h4 className="font-serif text-xl sm:text-2xl font-bold">
-                “Ma” (間) — The Art of the Meaningful Pause
+                “Ma” (間) · The Art of the Meaningful Pause
               </h4>
               <p className="text-xs sm:text-sm text-white/80 leading-relaxed font-sans">
                 True appreciation requires space between destinations. We design itineraries that allow you to sit on a veranda, sip green tea, and watch shadows drift across raked gravel.
@@ -416,19 +416,14 @@ export const OurStoryPage: React.FC<OurStoryPageProps> = ({ onNavigate }) => {
       {/* 6. Meet the Curators & Cultural Historians */}
       <div className="space-y-8 pt-4">
         <div className="text-center space-y-2 max-w-4xl mx-auto">
-          <div className="flex items-center justify-center gap-2 flex-wrap">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--gold)]">
-              Guardians of the Journal
-            </span>
-            <span className="text-[10px] text-[var(--mute)] bg-black/5 dark:bg-white/5 border theme-border px-2.5 py-0.5 rounded-full font-medium">
-              Fictional team (concept project)
-            </span>
-          </div>
+          <span className="text-[11px] font-bold uppercase tracking-widest text-[var(--gold)]">
+            Guardians of the Journal
+          </span>
           <h2 className="font-serif text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[var(--ink)] sm:whitespace-nowrap">
             Meet the Curators & Cultural Historians
           </h2>
           <p className="text-xs sm:text-sm text-[var(--mute)]">
-            Our team lives across Kyoto, Nara, Nagano, Kanazawa, and Tokyo—walking the paths, speaking with artisans, and verifying every detail firsthand.
+            Our team lives across Kyoto, Nara, Nagano, Kanazawa, and Tokyo, walking the paths, speaking with artisans, and verifying every detail firsthand.
           </p>
         </div>
 
@@ -519,7 +514,7 @@ export const OurStoryPage: React.FC<OurStoryPageProps> = ({ onNavigate }) => {
               </h3>
             </div>
             <p className="text-xs text-[var(--mute)] leading-relaxed">
-              Every chosen site must offer distinct, dramatic beauty across all four seasons—from snowy gassho roofs in Shirakawa-go to blazing maple leaf canopies in Arashiyama.
+              Every chosen site must offer distinct, dramatic beauty across all four seasons, from snowy gassho roofs in Shirakawa-go to blazing maple leaf canopies in Arashiyama.
             </p>
           </div>
 

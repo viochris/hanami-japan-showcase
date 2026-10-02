@@ -29,7 +29,7 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     id: "t2",
     quote:
-      "I planned my entire Kyoto itinerary around the Arashiyama bamboo grove dawn tip. Leaving our ryokan before dawn was worth every early alarm—we had the path completely to ourselves before the buses arrived. The sound of bamboo stalks creaking in the wind was pure meditation.",
+      "I planned my entire Kyoto itinerary around the Arashiyama bamboo grove dawn tip. Leaving our ryokan before dawn was worth every early alarm, we had the path completely to ourselves before the buses arrived. The sound of bamboo stalks creaking in the wind was pure meditation.",
     author: "Daniel Tremblay",
     city: "Melbourne",
     country: "Australia",
@@ -159,20 +159,15 @@ export const TestimonialCarousel: React.FC = () => {
 
         {/* Top Bar: Counter (1/N) and Navigation Controls */}
         <div className="flex items-center justify-between border-b theme-border pb-4 mb-6">
-          <div className="space-y-0.5">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full theme-primary-bg animate-pulse" />
-              <span className="font-serif text-xs uppercase tracking-widest text-[var(--mute)]">
-                Traveler Reflections
-              </span>
-              {/* The requested 1/N counter */}
-              <span className="px-2.5 py-0.5 rounded-full text-xs font-bold theme-header-bg text-white shadow-2xs">
-                {currentIndex + 1} / {total}
-              </span>
-            </div>
-            <p className="text-[10px] text-[var(--mute)] tracking-wide pl-4.5">
-              Fictional sample testimonials
-            </p>
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full theme-primary-bg animate-pulse" />
+            <span className="font-serif text-xs uppercase tracking-widest text-[var(--mute)]">
+              Traveler Reflections
+            </span>
+            {/* The requested 1/N counter */}
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold theme-header-bg text-white shadow-2xs">
+              {currentIndex + 1} / {total}
+            </span>
           </div>
 
           {/* Left and Right Navigation Buttons */}

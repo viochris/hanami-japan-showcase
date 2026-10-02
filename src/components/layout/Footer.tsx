@@ -181,10 +181,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <span>Tokyo & Kyoto Line</span>
               </span>
               <a
-                href="tel:+81358281234"
+                href="tel:+81300000000"
                 className="text-xs sm:text-sm font-semibold text-white hover:text-[var(--gold)] transition-colors block"
               >
-                +81 (0)3 5828 1234
+                +81 (0)3 0000 0000
               </a>
               <span className="text-[10px] text-white/60 block">
                 International inquiries (GMT+9)

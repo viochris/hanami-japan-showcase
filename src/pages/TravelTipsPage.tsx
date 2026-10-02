@@ -61,9 +61,9 @@ const TRAVEL_TIPS_DATA: TipItem[] = [
     badge: "Spiritual Etiquette",
     summary: "Shrines and temples have distinct spiritual traditions. Knowing the difference commands deep appreciation from priests and locals.",
     details: [
-      "At a Shinto Shrine: Bow slightly before stepping through the Torii gate. Never walk down the exact center of the path (Seichu)—it is reserved for the Kami (deities).",
+      "At a Shinto Shrine: Bow slightly before stepping through the Torii gate. Never walk down the exact center of the path (Seichu), as it is reserved for the Kami (deities).",
       "Purification at Temizuya: Wash left hand, right hand, pour water into left palm to rinse mouth, wash left hand again, tilt ladle vertically to rinse handle. Never drink directly from the ladle.",
-      "Prayer Clapping Distinction: At Shinto shrines, bow twice, clap your hands twice, pray silently, bow once (Ni-rei, ni-hai, ichi-rei). At Buddhist temples, fold hands quietly in silent contemplation—NEVER clap."
+      "Prayer Clapping Distinction: At Shinto shrines, bow twice, clap your hands twice, pray silently, bow once (Ni-rei, ni-hai, ichi-rei). At Buddhist temples, fold hands quietly in silent contemplation, never clap."
     ]
   },
   {
@@ -88,7 +88,7 @@ const TRAVEL_TIPS_DATA: TipItem[] = [
     summary: "Japan has virtually no public street trash cans. You are expected to carry your waste until finding a designated receptacle.",
     details: [
       "Always carry a small plastic bag in your daypack for trash throughout the day. Street bins were removed in 1995 for safety and never brought back.",
-      "Receptacles next to beverage vending machines are strictly for plastic PET bottles and aluminum cans—never stuff food wrappers or paper napkins into them.",
+      "Receptacles next to beverage vending machines are strictly for plastic PET bottles and aluminum cans, so never stuff food wrappers or paper napkins into them.",
       "Dispose of food wrappers at the convenience store (Konbini) where you purchased them, or bring them back to your hotel room bin."
     ]
   },
@@ -135,12 +135,12 @@ const TRAVEL_TIPS_DATA: TipItem[] = [
     summary: "Dial 119 for life-threatening emergencies. For non-life-threatening illnesses, use the 24/7 multilingual JNTO hotline.",
     details: [
       "Life-threatening emergency: Call 119 for an ambulance (Kyukyusha). State clearly: 'Kyukyudesu' (It is a medical emergency) and your location.",
-      "24/7 Multilingual Tourist Hotline: Call 050-3816-2788 (operated by Japan National Tourism Organization). They can direct you to hospitals with English-speaking staff.",
+      "24/7 Multilingual Tourist Hotline: Call 050-3816-2787 (operated by Japan National Tourism Organization). They can direct you to hospitals with English-speaking staff.",
       "Mild symptoms & medication: Head to a major drugstore chain (Matsumoto Kiyoshi, Sundrug, Welcia). Pharmacists have multilingual visual symptom cards for pain, stomach ache, fever, and motion sickness."
     ],
     actionWhereToGo: {
       label: "Emergency Hotline",
-      action: "Call 050-3816-2788 (JNTO Multilingual 24/7) or 119 (Ambulance)"
+      action: "Call 050-3816-2787 (JNTO Multilingual 24/7) or 119 (Ambulance)"
     }
   },
   {
@@ -396,7 +396,7 @@ export const TravelTipsPage: React.FC = () => {
               JNTO 24/7 English Hotline
             </span>
             <span className="text-base sm:text-lg font-serif font-bold block truncate">
-              050-3816-2788
+              050-3816-2787
             </span>
             <p className="text-[11px] text-white/70">
               24/7 multilingual support for tourist emergencies and English clinics.
