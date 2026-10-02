@@ -166,16 +166,19 @@ html {
   padding: 0.75rem 0;
   user-select: none;
   transition: background-color 0.4s ease, border-color 0.4s ease;
+  width: 100%;
 }
 
-.ticker-content {
+.ticker-content,
+.ticker-inner {
   display: inline-flex;
   white-space: nowrap;
-  animation: tickerScroll 48s linear infinite;
+  animation: tickerScroll 42s linear infinite !important;
   will-change: transform;
 }
 
-.ticker-wrap:hover .ticker-content {
+.ticker-wrap:hover .ticker-content,
+.ticker-wrap:hover .ticker-inner {
   animation-play-state: paused;
 }
 

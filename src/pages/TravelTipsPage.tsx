@@ -354,7 +354,7 @@ export const TravelTipsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 3. Emergency Quick-Reference Banner ("Kalo Butuh Apa ke Mana") */}
+      {/* 3. Emergency Quick-Reference Banner (Directory) */}
       <div className="bg-linear-to-r from-rose-900 to-[#2B2440] text-white rounded-3xl p-6 sm:p-8 shadow-md space-y-4">
         <div className="flex items-center gap-2.5">
           <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-[var(--gold)]">
@@ -405,74 +405,53 @@ export const TravelTipsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 4. Tips Grid: Spacious 2-Column Responsive Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+      {/* 4. Tips Grid: Spacious 2-Column Responsive Cards with Symmetrical Alignment */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 auto-rows-fr items-stretch">
         {filteredTips.map(tip => (
           <article
             key={tip.id}
-            className={`theme-card-bg rounded-3xl border ${
-              tip.isEmergency
-                ? "border-rose-300 shadow-sm"
-                : tip.isWarning
-                ? "border-amber-300 shadow-sm"
-                : "theme-border"
-            } p-6 sm:p-7 space-y-4 hover:shadow-md transition-all duration-300 flex flex-col justify-between`}
+            className="theme-card-bg rounded-3xl border theme-border p-6 sm:p-7 hover:shadow-md transition-all duration-300 flex flex-col justify-between h-full"
           >
-            <div className="space-y-3">
-              {/* Top Badge & Japanese Subtitle */}
-              <div className="flex items-center justify-between gap-2 flex-wrap">
+            <div className="flex flex-col flex-1 space-y-3.5">
+              {/* Top Badge & Japanese Subtitle - strictly aligned */}
+              <div className="flex items-center justify-between gap-3 min-h-[28px]">
                 <span
-                  className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 ${
-                    tip.isEmergency
-                      ? "bg-rose-100 text-rose-800 border border-rose-200"
-                      : tip.isWarning
-                      ? "bg-amber-100 text-amber-900 border border-amber-200"
-                      : "theme-header-bg text-white"
-                  }`}
+                  className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 theme-header-bg text-white shadow-2xs"
                 >
                   {tip.isEmergency ? (
-                    <PhoneCall className="w-3 h-3" />
+                    <PhoneCall className="w-3 h-3 text-[var(--gold)]" />
                   ) : tip.isWarning ? (
-                    <AlertTriangle className="w-3 h-3" />
+                    <AlertTriangle className="w-3 h-3 text-[var(--gold)]" />
                   ) : (
                     <CheckCircle2 className="w-3 h-3 text-[var(--gold)]" />
                   )}
                   <span>{tip.badge}</span>
                 </span>
 
-                <span className="text-xs font-serif font-bold text-[var(--red)]">
+                <span className="text-xs font-serif font-bold text-[var(--red)] tracking-wide shrink-0">
                   {tip.japanese}
                 </span>
               </div>
 
-              {/* Title */}
-              <h3 className="font-serif text-lg sm:text-xl font-bold text-[var(--ink)] leading-snug">
-                {tip.title}
-              </h3>
+              {/* Title with uniform height for symmetrical alignment */}
+              <div className="min-h-[3.25rem] flex items-center">
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-[var(--ink)] leading-snug">
+                  {tip.title}
+                </h3>
+              </div>
 
-              {/* Summary */}
-              <p className="text-xs sm:text-sm text-[var(--ink)]/85 leading-relaxed font-normal">
-                {tip.summary}
-              </p>
+              {/* Summary with uniform height */}
+              <div className="min-h-[2.75rem] flex items-start">
+                <p className="text-xs sm:text-sm text-[var(--ink)]/85 leading-relaxed font-normal">
+                  {tip.summary}
+                </p>
+              </div>
 
-              {/* Action Where To Go callout if emergency */}
-              {tip.actionWhereToGo && (
-                <div className="bg-amber-50/80 border border-amber-200 rounded-xl p-3 text-xs text-amber-900 flex items-start gap-2">
-                  <Compass className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-                  <div>
-                    <strong className="block font-semibold">
-                      {tip.actionWhereToGo.label}:
-                    </strong>
-                    <span>{tip.actionWhereToGo.action}</span>
-                  </div>
-                </div>
-              )}
-
-              {/* Detailed Bullet Points */}
-              <div className="space-y-2 pt-2 border-t theme-border text-xs text-[var(--mute)] leading-relaxed">
+              {/* Detailed Bullet Points - perfectly aligned baseline across cards */}
+              <div className="flex-1 space-y-2.5 pt-3.5 pb-3.5 border-t theme-border text-xs text-[var(--mute)] leading-relaxed">
                 {tip.details.map((point, pIdx) => (
                   <div key={pIdx} className="flex items-start gap-2">
-                    <span className="text-[var(--gold)] font-bold text-sm shrink-0">
+                    <span className="text-[var(--gold)] font-bold text-sm shrink-0 leading-none mt-0.5">
                       •
                     </span>
                     <span>{point}</span>
@@ -480,6 +459,21 @@ export const TravelTipsPage: React.FC = () => {
                 ))}
               </div>
             </div>
+
+            {/* Dedicated Bottom Callout if actionWhereToGo exists - strictly equal min-height and aligned */}
+            {tip.actionWhereToGo && (
+              <div className="mt-auto pt-3.5 border-t theme-border">
+                <div className="bg-amber-50/90 border border-amber-200/80 rounded-xl p-3 text-xs text-amber-900 flex items-center gap-2.5 min-h-[58px]">
+                  <Compass className="w-4 h-4 text-amber-700 shrink-0" />
+                  <div className="leading-snug">
+                    <strong className="font-bold text-amber-950">
+                      {tip.actionWhereToGo.label}:{" "}
+                    </strong>
+                    <span>{tip.actionWhereToGo.action}</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </article>
         ))}
       </div>

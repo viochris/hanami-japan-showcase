@@ -139,12 +139,9 @@ export const FaqPage: React.FC<FaqPageProps> = ({ onNavigate }) => {
         return false;
       }
       if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase();
-        return (
-          faq.question.toLowerCase().includes(q) ||
-          faq.answer.toLowerCase().includes(q) ||
-          faq.tags.some(t => t.toLowerCase().includes(q))
-        );
+        const q = searchQuery.toLowerCase().trim();
+        // Only match against the question title as requested
+        return faq.question.toLowerCase().includes(q);
       }
       return true;
     });

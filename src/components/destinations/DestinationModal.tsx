@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Destination } from "@/src/data/destinations";
 import { useWishlist } from "@/src/context/WishlistContext";
+import { DestinationLocationMap } from "./DestinationLocationMap";
 import {
   X,
   Heart,
@@ -92,16 +93,24 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
 
           {/* Heading */}
           <div className="space-y-1">
-            <div className="flex items-baseline gap-3 flex-wrap">
+            <div className="flex items-center gap-3 flex-wrap">
               <h2
                 id="modal-destination-title"
-                className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#2B2440]"
+                className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--ink)]"
               >
                 {destination.name}
               </h2>
-              <span className="font-serif text-lg sm:text-xl text-[#C9414D] font-bold">
+              <span className="font-serif text-lg sm:text-xl text-[var(--red)] font-bold">
                 {destination.japaneseName}
               </span>
+              {destination.id === "arashiyama-bamboo-grove" && (
+                <span
+                  className="w-8 h-8 rounded-md bg-[var(--red)] text-white font-serif font-bold text-xs flex items-center justify-center shadow-sm border border-white/60 rotate-[-4deg]"
+                  title="Arashiyama Hanko Stamp"
+                >
+                  嵐山
+                </span>
+              )}
             </div>
             <p className="text-xs sm:text-sm text-[#8B7E8C] flex items-center gap-1 font-medium">
               <MapPin className="w-3.5 h-3.5 text-[#D4AF6A]" />
@@ -219,28 +228,8 @@ export const DestinationModal: React.FC<DestinationModalProps> = ({
             </div>
           </div>
 
-          {/* Map Embed (Matching Reference iframe.map) */}
-          <div className="space-y-1">
-            <div className="flex items-center justify-between text-xs text-[#8B7E8C]">
-              <span className="font-bold uppercase tracking-wider text-[10px]">Location Map</span>
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(destination.mapQuery)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#C9414D] hover:underline flex items-center gap-1 font-medium text-[11px]"
-              >
-                <span>Open in Google Maps</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
-            </div>
-            <iframe
-              title={`Map of ${destination.name}`}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              src={`https://www.google.com/maps?q=${encodeURIComponent(destination.mapQuery)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
-              className="w-full h-64 sm:h-72 border-0 rounded-xl bg-[#eadbe6]"
-            />
-          </div>
+          {/* Dedicated Location Map with Guaranteed Red Pin */}
+          <DestinationLocationMap destination={destination} />
 
           {/* Action Row matching Reference (.acts) */}
           <div className="flex flex-wrap gap-3 pt-2">

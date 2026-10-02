@@ -187,7 +187,7 @@ export const DESTINATIONS: Destination[] = [
     "editorialDescription": "In Kyoto's scenic western Arashiyama district, centuries of imperial aristocrats and Zen masters retreated to write poetry along the Oi River. The heart of the district is the Bamboo Grove (Chikurin no Komichi), where towering green moso stalks rise dozens of meters into the sky, filtering the morning sun into a soft jade canopy. As the wind moves down from Mount Ogura, the hollow stalks sway and knock against one another with an unmistakable wooden chime. The path gently connects the world-heritage garden of Tenryu-ji Temple with the quiet moss gardens of Okochi Sanso Villa and the romantic Nonomiya Shrine.",
     "visitorPreparednessNote": "Because of its immense popularity, Arashiyama's central grove can become heavily crowded by mid-morning. To experience the tranquil, contemplative ambiance it was created for, arrive before 7:30 AM when the morning mist still lingers and local monks cycle past. Wear comfortable shoes for walking on compact dirt and cobblestone paths, and never carve initials or scratch the delicate bamboo stalks—damage permanently kills these historic plants.",
     "localInsight": "Did you know? The sound of wind rustling through the stalks in Arashiyama was officially designated by the Japanese Ministry of the Environment as one of the '100 Soundscapes of Japan' (Nihon no Oto Fūkei 100-sen), selected to encourage travelers to pause, quiet their voices, and immerse themselves in the acoustic heritage of nature.",
-    "mapQuery": "Arashiyama Bamboo Grove, Sagatenryuji Susukinobabacho, Ukyo Ward, Kyoto, Japan",
+    "mapQuery": "Arashiyama Bamboo Grove, Kyoto, Japan",
     "mapCoordinates": {
       "lat": 35.0169,
       "lng": 135.6713

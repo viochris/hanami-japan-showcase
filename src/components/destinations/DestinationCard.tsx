@@ -60,6 +60,16 @@ export const DestinationCard: React.FC<DestinationCardProps> = ({
         {/* Gradient scrim for text legibility */}
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
+        {/* Tanda Merah Hanko Seal for Arashiyama */}
+        {destination.id === "arashiyama-bamboo-grove" && (
+          <div
+            className="absolute top-2.5 left-2.5 z-20 w-8 h-8 rounded-md bg-[var(--red)] text-white font-serif font-bold text-xs flex items-center justify-center shadow-md border border-white/80 rotate-[-5deg]"
+            title="Arashiyama Hanko Stamp"
+          >
+            嵐山
+          </div>
+        )}
+
         {/* Flat Bottom Region badge */}
         <div className="absolute bottom-2.5 left-3.5 right-3.5 flex items-center justify-between text-white drop-shadow-sm">
           <span className="text-xs font-medium flex items-center gap-1.5 text-white/95 truncate">

@@ -172,6 +172,9 @@ export const RegionalMap: React.FC<RegionalMapProps> = ({
       if (!isVisible) return;
 
       const isSelected = dest.id === selectedDestId;
+      const isArashiyama = dest.id === "arashiyama-bamboo-grove";
+      const pinFill = isSelected ? "#C9414D" : isArashiyama ? "#C9414D" : "#2B2440";
+      const strokeColor = isSelected || isArashiyama ? "#D4AF6A" : "rgba(212,175,106,0.6)";
 
       // Custom Japanese Pin with number badge & shadow
       const customIcon = L.divIcon({
@@ -185,14 +188,24 @@ export const RegionalMap: React.FC<RegionalMapProps> = ({
             width: 38px;
             height: 44px;
             cursor: pointer;
-            transform: scale(${isSelected ? 1.25 : 1});
+            transform: scale(${isSelected ? 1.3 : isArashiyama ? 1.15 : 1});
             transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.45));
           ">
+            ${isArashiyama ? `
+              <div style="
+                position: absolute;
+                inset: -4px;
+                border-radius: 50%;
+                background: rgba(201,65,77,0.3);
+                animation: pulse 2s infinite;
+                pointer-events: none;
+              "></div>
+            ` : ""}
             <svg viewBox="0 0 38 44" width="38" height="44">
               <path d="M19 0 C8.5 0 0 8.5 0 19 C0 30.5 19 44 19 44 C19 44 38 30.5 38 19 C38 8.5 29.5 0 19 0 Z"
-                    fill="${isSelected ? "#C9414D" : "#2B2440"}"
-                    stroke="#D4AF6A"
+                    fill="${pinFill}"
+                    stroke="${strokeColor}"
                     stroke-width="2.5" />
               <circle cx="19" cy="18" r="11" fill="#FFFDF8" />
               <text x="19" y="22"
@@ -200,7 +213,7 @@ export const RegionalMap: React.FC<RegionalMapProps> = ({
                     font-size="11"
                     font-weight="900"
                     font-family="system-ui, -apple-system, sans-serif"
-                    fill="${isSelected ? "#C9414D" : "#2B2440"}">${idx + 1}</text>
+                    fill="${pinFill}">${idx + 1}</text>
             </svg>
           </div>
         `
