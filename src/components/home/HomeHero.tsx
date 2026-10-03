@@ -89,7 +89,7 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ onNavigate }) => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(212,175,106,0.18)_0%,transparent_65%)] z-[-3] pointer-events-none" />
 
       {/* ==============================================================
-          LAYER 2: KERTAS FOTO PEMANDANGAN JEPANG (Photographic Paper Prints)
+          LAYER 2: JAPANESE LANDSCAPE PHOTO PRINTS (Photographic Paper Prints)
           Tangible archival photo paper cards with landscape photography
          ============================================================== */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-[-2] overflow-hidden px-4">
@@ -112,7 +112,7 @@ export const HomeHero: React.FC<HomeHeroProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Primary Main Photo Print: Kertas Foto Pemandangan Musim Jepang */}
+        {/* Primary Main Photo Print: Japanese Seasonal Landscape Photo Print */}
         <div
           className="relative max-w-[540px] sm:max-w-[700px] lg:max-w-[840px] w-[92vw] aspect-[16/10] bg-[#FFFDF9] p-3 sm:p-5 pb-8 sm:pb-12 rounded-sm shadow-[0_35px_80px_-15px_rgba(0,0,0,0.85)] -rotate-1.5 hover:rotate-0 transition-transform duration-700 ring-1 ring-black/15 border border-white/80"
         >

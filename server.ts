@@ -74,7 +74,7 @@ Guidelines:
 
     if (!summary) {
       // Graceful cultural fallback if all external models are experiencing temporary high-demand rate limits
-      summary = `A contemplative voyage through ${destinationList || "Japan's sacred sanctuaries"}, attuned to the mindful cadence of ${season || "the season"}. From dawn mist gently lifting over tranquil temple corridors to twilight descending across historic paths, this bespoke itinerary harmonizes Japan's timeless reverence for nature with genuine omotenashi hospitality—inviting you to savor each quiet threshold between ancient stone and modern wonder.`;
+      summary = `A contemplative voyage through ${destinationList || "Japan's sacred sanctuaries"}, attuned to the mindful cadence of ${season || "the season"}. From dawn mist gently lifting over tranquil temple corridors to twilight descending across historic paths, this bespoke itinerary harmonizes Japan's timeless reverence for nature with genuine omotenashi hospitality, inviting you to savor each quiet threshold between ancient stone and modern wonder.`;
     }
 
     return res.json({ summary });

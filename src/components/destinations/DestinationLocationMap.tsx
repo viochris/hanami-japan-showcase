@@ -127,7 +127,7 @@ export const DestinationLocationMap: React.FC<DestinationLocationMapProps> = ({
             letter-spacing: 0.05em;
             z-index: 3;
           ">
-            📍 Titik Lokasi
+            📍 Exact Location
           </div>
         </div>
       `
@@ -198,7 +198,7 @@ export const DestinationLocationMap: React.FC<DestinationLocationMapProps> = ({
                   : "text-[var(--mute)] hover:text-[var(--ink)]"
               }`}
             >
-              Titik Presisi
+              Interactive Map
             </button>
             <button
               type="button"

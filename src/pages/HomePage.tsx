@@ -64,14 +64,14 @@ export const HomePage: React.FC<HomePageProps> = ({
                 className="w-full h-full object-cover"
               />
 
-              {/* TANDA MERAH RESMI: Traditional Red Hanko Seal Stamp (印鑑 - 嵐山) */}
+              {/* Traditional Red Hanko Seal Stamp (印鑑 - 嵐山) */}
               <div
                 className="hanko-stamp absolute top-4 left-4 z-20 shadow-lg border-2 border-white/90"
                 style={{
                   backgroundColor: "var(--red)",
                   boxShadow: "inset 0 0 0 2px rgba(255,255,255,0.35), 0 6px 16px rgba(186,61,29,0.4)"
                 }}
-                aria-label="Tanda Merah Hanko Arashiyama"
+                aria-label="Traditional Red Hanko Seal Stamp for Arashiyama"
               >
                 嵐山
               </div>
