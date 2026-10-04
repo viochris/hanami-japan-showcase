@@ -4,6 +4,7 @@
 
 **A 16 destination Japan travel journal with four seasonal themes, an interactive regional map, a drag and drop itinerary builder, sample travel packages, and a practical travel tips guide. Built purely to demonstrate frontend visual design, layout, and interaction skill.**
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-hanami--japan--showcase.vercel.app-C9414D?style=for-the-badge)](https://hanami-japan-showcase.vercel.app)
 [![Vibe Coded](https://img.shields.io/badge/Vibe%20Coded-Google%20AI%20Studio%20%2B%20Gemini-4285F4?style=for-the-badge)](https://ai.studio)
 
 **[Important Notice](#important-notice)** · **[Features](#features)** · **[Tech Stack](#tech-stack)** · **[Getting Started](#getting-started)** · **[Project Structure](#project-structure)** · **[How It Works](#how-it-works)** · **[Known Limitations](#known-limitations)** · **[Data Sources and Credits](#data-sources-and-credits)**
@@ -28,7 +29,7 @@ The point of this project is the frontend, which means the color system, the lay
 
 ## Overview
 
-Hanami was built to show that a frontend developer can take a content heavy, multipage site and give it one clear visual identity, then keep that identity consistent across every page. The result is a seven page Japan travel journal with a soft editorial look, a seasonal theme that changes the whole site at once, and a set of tools that behave like real features. Visitors can search and filter 16 destinations, browse them on an interactive map, save favorites, and assemble a day by day itinerary by dragging places into a schedule.
+Hanami was built to show that a frontend developer can take a content heavy, multipage site and give it one clear visual identity, then keep that identity consistent across every page. The result is a seven page Japan travel journal with a soft editorial look, a seasonal theme that changes the whole site at once, and a set of tools that behave like real features. Visitors can search and filter 16 destinations, browse them on an interactive map, save favorites, and assemble a day by day itinerary by dragging places into a schedule. A live version is running on Vercel at [hanami-japan-showcase.vercel.app](https://hanami-japan-showcase.vercel.app).
 
 The project was vibe coded in [Google AI Studio](https://ai.studio) with Gemini. It is part of my personal portfolio of vibe coded projects built outside my main focus areas (Data Science, NLP, and GenAI and LLM agent engineering). It sits next to [AutoVista Motors](https://github.com/viochris/autovista-car-dealership), a car dealership showcase, and [Skycast](https://github.com/viochris/skycast-weather-dashboard), a weather dashboard, which were built the same way.
 
@@ -73,7 +74,7 @@ Opening a destination shows an editorial description and a photo gallery with ar
 * A Local Insight section titled Did You Know
 * The best season, an illustrative cost in yen, and a suggested visit length
 * A heart button to save or unsave the place
-* A location map with two views, an interactive map zoomed onto the spot, or an embedded Google map with a link that opens Google Maps
+* A location map marked with an Exact Location badge, with a small switch between an Interactive Map zoomed onto the spot and an embedded Google Maps view, plus an Open in Google Maps link
 * A Plan a Trip Here button that carries the destination into the trip form
 
 The popup closes with the Escape key, the left and right arrow keys move through the gallery, and the page behind it stops scrolling while it is open.
@@ -186,7 +187,7 @@ If `npm install` stops with a dependency conflict that mentions esbuild, open `p
 | `npm run clean` | Deletes the `dist` folder (macOS and Linux) |
 
 ### Deployment
-Since the site has no backend dependency, it can be deployed to any static host by running `npm run build` and serving the `dist` folder. The live version is hosted on Vercel. Page changes happen inside the app and never change the address, so the host does not need any special routing rules.
+Since the site has no backend dependency, it can be deployed to any static host by running `npm run build` and serving the `dist` folder. The live version is hosted on Vercel at [hanami-japan-showcase.vercel.app](https://hanami-japan-showcase.vercel.app). Page changes happen inside the app and never change the address, so the host does not need any special routing rules.
 
 ---
 
